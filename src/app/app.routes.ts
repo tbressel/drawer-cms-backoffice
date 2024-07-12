@@ -13,6 +13,7 @@ import { EditArticleComponent } from './backoffice/edit-article/edit-article.com
 import { DiskUnitsSettingComponent } from './backoffice/disk-units-setting/disk-units-setting.component';
 import { UnitFilesSettingComponent } from './backoffice/unit-files-setting/unit-files-setting.component';
 import { AllUsersComponent } from './backoffice/all-users/all-users.component';
+import { AllCertificatesComponent } from './backoffice/all-certificates/all-certificates.component';
 import { PermissionsService } from './services/permissions.service'
 
 export const routes: Routes = [
@@ -27,6 +28,7 @@ export const routes: Routes = [
     { path: 'disk-units-setting', component: DiskUnitsSettingComponent, canActivate: [PermissionsService]},
     { path: 'unit-files-setting', component: UnitFilesSettingComponent, canActivate: [PermissionsService]},
     { path: 'all-users', component: AllUsersComponent, canActivate: [PermissionsService]},
+    { path: 'all-certificates', component: AllCertificatesComponent, canActivate: [PermissionsService]}
 
 ];
 

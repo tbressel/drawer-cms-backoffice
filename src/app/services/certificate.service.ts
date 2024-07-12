@@ -27,6 +27,8 @@ interface ViewCertificate {
   token: string;
 }
 
+import { CertificatesListModel } from '../models/certificate.models';
+
 
 // Decorator to inject the service in all components that need it
 @Injectable({
@@ -81,6 +83,22 @@ export class CertificateService {
         })
       }
         return this.http.get<ViewCertificate[]>(`${CONFIG.baseUrl}/view-certificate/${id}`, httpOptions);
+      }
+
+/**
+ * 
+ * Get the list of all certificate for all users
+ * 
+ * @param token 
+ * @returns 
+ */
+      getAll(token: string): Observable<CertificatesListModel[]> {
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+          })
+        }
+        return this.http.get<CertificatesListModel[]>(`${CONFIG.baseUrl}/all-certificates`, httpOptions);
       }
     
 }
