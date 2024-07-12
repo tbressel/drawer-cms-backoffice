@@ -1,0 +1,41 @@
+<div *ngIf="isLoading" class="mask"></div>
+<div *ngIf="isLoading" class="spinner"></div>
+
+
+<div class="login__wrapper">
+
+  <div class="login__title">
+    <h2>Se connecter</h2>
+  </div>
+
+  <div class="login__container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="login__form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <div class="login__username-container">
+          <input id="username" formControlName="username" type="text" class="login__form-control" />
+        </div>
+      </div>
+
+      <div class="login__form-group">
+        <label for="password">Mot de passe</label>
+        <div class="login__password-container">
+          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+            class="login__form-control" />
+          <button type="button" class="login__toggle-password" (click)="toggleShowPassword()">
+            <i *ngIf="!showPassword" class="fa fa-eye-slash" aria-hidden="true"></i>
+            <i *ngIf="showPassword" class="fa fa-eye" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="errorMessage" class="login__error">{{ errorMessage }}</div>
+      <button type="submit" class="btn btn-primary">Se connecter</button>
+    </form>
+  </div>
+</div>
+
+
+
+<app-notifications *ngIf="isNotificationWindow" [notificationMessage]="notificationMessage"></app-notifications>

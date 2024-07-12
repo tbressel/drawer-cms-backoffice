@@ -1,0 +1,80 @@
+@import '../../../styles/colors.scss';
+
+.add-button {
+    
+    margin: 10px;
+}
+
+.all-files__wrapper {
+    border: 2px solid #000;
+    background-color: $grass5;
+    border-collapse: collapse;
+    width: 100%;
+
+
+    .all-files__header {
+        background-color: $grass8;
+
+        .all-files__column {
+            
+            padding: 10px;
+            border-bottom: 2px solid #000;
+            font-weight: bold;
+        }
+
+    }
+
+    .all-files__body {
+        background-color: $grass5;
+
+        .all-files__row {
+            
+            border-bottom: 1px solid #000;
+
+
+            .all-files__column {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                
+                padding: 10px;
+            }
+
+            .all-files__content {
+                vertical-align: middle;
+            }
+        }
+
+        .icon-displayed {
+            // content: url('../../../assets/icons/eye-open.svg');
+            max-width: 20px;
+            margin: 10px;
+            
+            }
+            
+            .icon-not-displayed {
+                // content: url('../../../assets/icons/eye-close.svg');
+                max-width: 20px;
+                margin: 10px;
+         
+        }
+
+        .edit-icon,
+        .delete-icon {
+            padding: 10px;
+        }
+    }
+}
+
+@media screen and (min-width: 550px) {
+
+                    .icon-displayed,
+                    .icon-not-displayed,
+                    .edit-icon,
+                    .delete-icon {
+                        // cursor: url('../../../assets/icons/atari-arrow1.png'), auto;                          
+                    }
+
+
+                
+            }

@@ -1,0 +1,35 @@
+<table class="all-users__wrapper" *ngIf="dataAllUsers && dataAllUsers.length > 0">
+    <thead class="all-users__header">
+        <tr class="all-users__row">
+            <th class="all-users__column">ID</th>
+            <th class="all-users__column">USERNAME</th>
+            <th class="all-users__column">EMAIL</th>
+            <th class="all-users__column">COMPTE ACTIVE</th>
+            <th class="all-users__column">DATE D'INSCRIPTION</th>
+            <th class="all-users__column">ROLE</th>
+            <th class="all-users__column">ACTION</th>
+
+        </tr>
+    </thead>
+    <tbody class="all-users__body">
+        <tr class="all-users__row" *ngFor="let user of dataAllUsers">
+            <td class="all-users__column">{{ getUserPropertyValue(user, 'id_users') }}</td>
+            <td class="all-users__content">{{ getUserPropertyValue(user, 'username') }}</td>
+            <td class="all-users__content">{{ getUserPropertyValue(user, 'email') }}</td>
+            <td class="all-users__content">{{ getUserPropertyValue(user, 'isActivated') }}</td>
+            <td class="all-users__content">{{ getUserPropertyValue(user, 'registrationDate') }}</td>
+            <td class="all-users__content">{{ getUserPropertyValue(user, 'name') }}</td>
+            <td class="all-users__column">
+                <ng-container *ngIf="getUserPropertyValue(user, 'isActivated'); else notDisplayed">
+                    <i class="icon-displayed" (click)="toggleActivateUser(user)"></i>
+                </ng-container>
+                <ng-template #notDisplayed>
+                    <i class="icon-not-displayed" (click)="toggleActivateUser(user)"></i>
+                </ng-template>
+            
+            
+                <i class="edit-icon" (click)="selectUser(user)">🖊️</i>
+            <i class="delete-icon"  (click)="deleteUser(user)">❌</i></td>
+        </tr>
+    </tbody>
+</table>

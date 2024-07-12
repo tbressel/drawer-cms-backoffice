@@ -1,0 +1,56 @@
+
+<div class="add-button">
+    <p>Ajouter un nouveau fichier</p>
+    <button (click)="toggleForm()">➕</button>
+    
+    
+    <form (submit)="submitForm(); $event.preventDefault()" *ngIf="showForm">
+        <label for="unit-letter">Choix de l'unitée : </label>
+        <select [(ngModel)]="selectedLetter" name="letter">
+            <option value="" disabled selected>Choisissez une unitée</option>
+            <option *ngFor="let letter of diskUnits" [id]="letter.id_disk_units" [value]="letter.id_disk_units">{{ letter.letter }}</option>
+          </select>
+    
+          <label for="unit-file"></label>
+          <input type="file" id="unit-file" name="file" accept=".zip" (change)="onFileChange($event)">
+        <button type="submit">Ajouter</button>
+    </form>
+</div>
+
+
+
+
+
+
+<table class="all-files__wrapper" *ngIf="dataAllFiles && dataAllFiles.length > 0">
+    <thead class="all-files__header">
+        <tr class="all-files__row">
+            <th class="all-files__column">LETTER</th>
+            <th class="all-files__column">LABEL</th>
+            <th class="all-files__column">NAME</th>
+            <th class="all-files__column">ID</th>
+            <th class="all-files__column">ACTION</th>
+
+        </tr>
+    </thead>
+    <tbody class="all-files__body">
+        <tr class="all-files__row" *ngFor="let file of dataAllFiles">
+            <td class="all-files__column">{{ getFilePropertyValue(file, 'letter') }}</td>
+            <td class="all-files__content">{{ getFilePropertyValue(file, 'label') }}</td>
+            <td class="all-files__content">{{ getFilePropertyValue(file, 'name') }}</td>
+            <td class="all-files__content">{{ getFilePropertyValue(file, 'id_files') }}</td>
+         
+            <td class="all-files__column">
+                <ng-container *ngIf="getFilePropertyValue(file, 'isDisplay'); else notDisplayed">
+                    <i class="icon-displayed" (click)="toggleDisplayFile(file)"></i>
+                </ng-container>
+                <ng-template #notDisplayed>
+                    <i class="icon-not-displayed" (click)="toggleDisplayFile(file)"></i>
+                </ng-template>
+            
+             
+                <!-- <i class="edit-icon" (click)="selectFile(file)">🖊️</i> -->
+            <i class="delete-icon"  (click)="deleteFile(file)">❌</i></td>
+        </tr>
+    </tbody>
+</table>

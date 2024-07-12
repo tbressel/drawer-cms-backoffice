@@ -1,0 +1,33 @@
+// Reseting style for all browser default params
+@import './styles/reset.scss';
+
+// Define palette
+@import './styles/colors.scss';
+
+// Setting fonts
+@import './styles/fonts.scss';
+
+@import './styles/classes.scss';
+
+// Setting global styles
+@import './styles/articles.scss';
+
+
+
+* {
+    // width: 100%;
+    font-weight: 400;
+    font-family: 'AntiqueOlive';
+    box-sizing: border-box;    
+}
+
+
+
+body {
+    overflow-wrap: anywhere;
+}
+
+a {
+    text-decoration: none;
+    color: $black;
+}

@@ -1,0 +1,46 @@
+<div class="desktop-falcon">
+
+    
+    <div class="add-button">
+        <p>Ajouter une nouvelle unitée de disk</p>
+    <button (click)="toggleDiskForm()">➕</button>
+
+    <form (submit)="submitForm(); $event.preventDefault()" *ngIf="showDiskSection">
+        <label for="label">Label :</label>
+        <input type="text" id="label" name="label" [(ngModel)]="label">
+        <label for="label">Letter :</label>
+        <input type="text" id="letter" name="letter" [(ngModel)]="letter">
+        <button type="submit">Ajouter</button>
+    </form>
+</div>
+    
+    <ul class="navigation__container">
+        <ng-container *ngFor="let itemUnit of dataUnit">
+            <li id={{itemUnit.id_disk_units}} class="item__unit-container">
+               
+                <div class="item__unit-description">
+
+                    <div class="item__unit-letter">
+                        <p>{{itemUnit.letter}}</p>
+                    </div>
+
+                    <div class="item__unit-label">
+                        <p>{{itemUnit.label}}</p>
+                    </div>
+
+                </div>
+
+                <div class="item__unit-actions">
+                    <p class="item__unit-update">🖊️</p>
+                    <p class="item__unit-delete" (click)="deleteItem(itemUnit.id_disk_units)">❌</p>                
+                </div>
+            </li>
+        </ng-container>
+    </ul>
+
+
+
+
+
+
+</div>

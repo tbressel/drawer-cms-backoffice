@@ -1,0 +1,58 @@
+<app-notifications *ngIf="isNotificationWindow" [notificationMessage]="notificationMessage"></app-notifications>
+
+
+<div class="desktop-falcon">
+
+<div class="add-button">
+    <p>Ajouter un nouveau menu</p>
+    <button (click)="toggleForm()">➕</button>
+    
+    <form (submit)="submitForm(); $event.preventDefault()" *ngIf="showForm">
+        <label for="name-menu">Nom :</label>
+        <input type="text" id="name-menu" name="name" [(ngModel)]="name">
+        <button type="submit">Ajouter</button>
+    </form>
+</div>
+    
+
+    <ul class="navigation__container">
+        <ng-container *ngFor="let itemMenu of dataMenu">
+            <li id={{itemMenu.id_menu}} class="item__menu-container">
+                <div class="item__menu-order">
+
+                    <div class="item__menu-place">
+                        <p>{{itemMenu.place}}</p>
+                    </div>
+
+                    <div class="item__menu-button">
+                        <p class="item__menu-up" (click)="upItem(itemMenu.id_menu)">⬆️</p>
+                        <p class="item__menu-down" (click)="downItem(itemMenu.id_menu)">⬇️</p>
+                    </div>
+
+                </div>
+
+                <div class="item__menu-description">
+
+                    <div class="item__menu-label">
+                        <p>{{itemMenu.name}}</p>
+                    </div>
+
+                    <div class="item__menu-link">
+                        <p>{{itemMenu.link}}</p>
+                    </div>
+
+                </div>
+
+                <div class="item__menu-actions">
+                    <p class="item__menu-update">🖊️</p>
+                    <p class="item__menu-delete" (click)="deleteItem(itemMenu.id_menu)">❌</p>                
+                </div>
+            </li>
+        </ng-container>
+    </ul>
+
+
+
+
+
+</div>

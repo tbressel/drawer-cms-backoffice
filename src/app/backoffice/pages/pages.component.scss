@@ -1,0 +1,45 @@
+@import '../../../styles/settings.scss';
+
+
+.active {
+    border-radius: 50%;
+    background-color: $orange;
+}
+
+.link-disabled {
+    pointer-events: none;
+    color: $grey;
+}
+
+
+
+.article__pages--top,
+.article__pages--bot {
+    display: flex;
+    justify-content: space-between;
+    .article__pages--left {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        font-size: calc($font-body - 0.3rem);
+    }
+    .article__pages--right {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        font-size: calc($font-body - 0.3rem);
+    }
+
+        .article__pages--center {
+            display: flex;
+            justify-content: center;
+            width: fit-content;
+    
+            li {
+                margin-left: 10px;
+                margin-right: 10px;
+                padding: 10px;
+                text-align: center;
+            }
+        }
+}

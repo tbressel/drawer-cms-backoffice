@@ -1,0 +1,77 @@
+@import '../../../styles/colors.scss';
+
+
+
+.all-users__wrapper {
+    border: 2px solid #000;
+    background-color: $grass5;
+    border-collapse: collapse;
+    width: 100%;
+
+
+    .all-users__header {
+        background-color: $grass8;
+
+        .all-users__column {
+            
+            padding: 10px;
+            border-bottom: 2px solid #000;
+            font-weight: bold;
+        }
+
+    }
+
+    .all-users__body {
+        background-color: $grass5;
+
+        .all-users__row {
+            
+            border-bottom: 1px solid #000;
+
+
+            .all-users__column {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                
+                padding: 10px;
+            }
+
+            .all-users__content {
+                vertical-align: middle;
+            }
+        }
+
+        .icon-displayed {
+            // content: url('../../../assets/icons/eye-open.svg');
+            max-width: 20px;
+            margin: 10px;
+            
+            }
+            
+            .icon-not-displayed {
+                // content: url('../../../assets/icons/eye-close.svg');
+                max-width: 20px;
+                margin: 10px;
+         
+        }
+
+        .edit-icon,
+        .delete-icon {
+            padding: 10px;
+        }
+    }
+}
+
+@media screen and (min-width: 550px) {
+
+                    .icon-displayed,
+                    .icon-not-displayed,
+                    .edit-icon,
+                    .delete-icon {
+                        // cursor: url('../../../assets/icons/atari-arrow1.png'), auto;                           
+                    }
+
+
+                
+            }

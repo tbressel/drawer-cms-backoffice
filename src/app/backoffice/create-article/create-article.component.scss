@@ -1,0 +1,110 @@
+///////////////////////////////////////////////////
+////////////////// Mobil Style ////////////////////
+///////////////////////////////////////////////////
+
+/////////////////// Le Formulaire ///////////////////
+.create-article__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+    .create-article--form {
+
+        .header-article__wrapper {
+            display: flex;
+            flex-direction: row;
+
+            .header__article-bloc--left {
+                flex-direction: column;
+                justify-content: space-between;
+                margin: 1rem 0;
+
+
+
+
+                    .create-article-category--left {
+                        display: flex;
+                        justify-content: space-between;
+                        margin: 1rem 0;
+
+                        select {
+                            border: dotted;
+                            background-color: transparent;
+                            font-size: 1.8rem;
+                            
+                            width: 100%;
+                        }
+                    }
+                
+
+                .create-article-subtitle--left {
+                    width: 100%;
+
+                    input {
+                        border: dotted;
+                        background-color: transparent;
+                        font-size: 1.8rem;
+                        
+                        text-decoration: underline;
+                        width: 100%;
+                    }
+                }
+
+                .create-article-text--left{
+                    width: 100%;
+
+                    textarea {
+                        border: dotted;
+                        font-size: 1.8rem;
+                        
+                        width: 100%;
+                        height: 250px;
+
+                    }
+                }
+            }
+
+            .header__article-bloc--right {
+                display: flex;
+                flex-direction: column;
+                margin: 1rem 0 1rem 1rem;
+                width: 50%;
+
+                .create-article-image--right {
+
+
+                    img {
+
+                        width: 100%;
+                        transition: 300ms;
+                    }
+                }
+            }
+
+        }
+
+        .footer__form--wrapper {
+            img {
+                max-width: 400px;
+                display: flex;
+            }
+
+        }
+
+
+        .create-article__tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .create-article__tag {
+                width: fit-content;
+                padding: 10px;
+                border-radius: 10px;
+                border: 1px solid;
+            }
+        }
+
+    }
+
+}

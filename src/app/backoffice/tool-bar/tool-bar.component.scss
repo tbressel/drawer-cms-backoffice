@@ -1,0 +1,46 @@
+.tool__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid grey;
+    background-color: darkgrey;
+    padding: 10px;
+    position: fixed;
+    z-index: 20;
+    left: -1px;
+    // margin-left: calc((100vw - 1600px) / 2);
+    width: 100%;
+    max-width: 1600px;
+    border-radius: 5px;
+    top: 72px;
+
+    li:hover {
+        //   cursor: url('../../../../assets/icons/atari-arrow1.png'), auto;
+    }
+
+    li {
+        width: 2rem;
+    }
+}
+
+.tools__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    background-color: white;
+    border-radius: 5px;
+
+
+    .tools__items {
+        padding: 2px;
+        margin: 2px;
+        border-radius: 2px;
+    }
+    .tools__items:hover {
+        //   cursor: url('../../../../assets/icons/atari-arrow1.png'), auto;
+        background-color:black;
+    }
+}

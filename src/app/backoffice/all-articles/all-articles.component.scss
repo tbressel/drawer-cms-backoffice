@@ -1,0 +1,64 @@
+@import '../../../styles/settings.scss';
+
+
+
+.all-articles__wrapper {
+    border: 2px solid #000;
+    background-color: $grass5;
+    border-collapse: collapse;
+    width: 100%;
+
+
+    .all-articles__header {
+        background-color: $grass8;
+
+        .all-articles__column {
+            
+            padding: 10px;
+            border-bottom: 2px solid #000;
+            font-weight: bold;
+        }
+
+    }
+
+    .all-articles__body {
+        background-color: $grass5;
+
+        .all-articles__row {
+            
+            border-bottom: 1px solid #000;
+
+
+            .all-articles__column {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                
+                padding: 10px;
+            }
+
+            .all-articles__content {
+                vertical-align: middle;
+            }
+        }
+
+        .icon-displayed {
+            // content: url('../../../assets/icons/eye-open.svg');
+            max-width: 20px;
+            margin: 10px;
+            
+            }
+            
+            .icon-not-displayed {
+                // content: url('../../../assets/icons/eye-close.svg');
+                max-width: 20px;
+                margin: 10px;
+         
+        }
+
+        .edit-icon,
+        .delete-icon {
+            padding: 10px;
+        }
+    }
+}

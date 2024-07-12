@@ -1,0 +1,23 @@
+<div *ngIf="wholeArticle && wholeArticle.length > 0" class="article__pages--bot">
+
+
+    <div class="article__pages--left">
+        <a [routerLink]="['/' + routeTypeProps, wholeArticle[0]?.id_articles, (wholeArticle[0]?.page) - 1]"
+           [ngClass]="{'link-disabled': wholeArticle[0]?.page === 1 || wholeArticle[0]?.page > wholeArticle[0]?.max_page}"
+           (click)="wholeArticle[0]?.page === 1 || wholeArticle[0]?.page > wholeArticle[0]?.max_page ? $event.preventDefault() : null">Page précédente</a>
+    </div>
+
+    <ul class="article__pages--center">
+        <li *ngFor="let page of getPagesArray()" [class.active]="wholeArticle[0]?.page === page">
+            <a [routerLink]="['/' + routeTypeProps, wholeArticle[0]?.id_articles, page]">
+                {{ page }}
+            </a>
+        </li>
+    </ul>
+    <div class="article__pages--right">
+        <a [routerLink]="['/' + routeTypeProps, wholeArticle[0]?.id_articles, (wholeArticle[0]?.page) + 1]"
+           [ngClass]="{'link-disabled': wholeArticle[0]?.page === wholeArticle[0]?.max_page}"
+           (click)="wholeArticle[0]?.page === 1 || wholeArticle[0]?.page > wholeArticle[0]?.max_page ? $event.preventDefault() : null">Page suivante</a>
+    </div>
+
+</div>

@@ -1,0 +1,35 @@
+<table class="all-articles__wrapper" *ngIf="dataAllArticles && dataAllArticles.length > 0">
+    <thead class="all-articles__header">
+        <tr class="all-articles__row">
+            <th class="all-articles__column">ID</th>
+            <th class="all-articles__column">TITRE</th>
+            <th class="all-articles__column">DESCRIPTION</th>
+            <th class="all-articles__column">CATEGORIE</th>
+            <th class="all-articles__column">DATE</th>
+            <th class="all-articles__column">AUTEUR</th>
+            <th class="all-articles__column">ACTION</th>
+
+        </tr>
+    </thead>
+    <tbody class="all-articles__body">
+        <tr class="all-articles__row" *ngFor="let article of dataAllArticles">
+            <td class="all-articles__column">{{ getArticlePropertyValue(article, 'id_articles') }}</td>
+            <td class="all-articles__content">{{ getArticlePropertyValue(article, 'title') }}</td>
+            <td class="all-articles__content">{{ getArticlePropertyValue(article, 'description') }}</td>
+            <td class="all-articles__content">{{ getArticlePropertyValue(article, 'category') }}</td>
+            <td class="all-articles__content">{{ getArticlePropertyValue(article, 'creation_date') }}</td>
+            <td class="all-articles__content">{{ getArticlePropertyValue(article, 'username') }}</td>
+            <td class="all-articles__column">
+                <ng-container *ngIf="getArticlePropertyValue(article, 'isDisplay'); else notDisplayed">
+                    <i class="icon-displayed" (click)="toggleDisplayArticle(article)"></i>
+                </ng-container>
+                <ng-template #notDisplayed>
+                    <i class="icon-not-displayed" (click)="toggleDisplayArticle(article)"></i>
+                </ng-template>
+            
+            
+                <i class="edit-icon" (click)="selectArticle(article)">🖊️</i>
+            <i class="delete-icon"  (click)="deleteArticle(article)">❌</i></td>
+        </tr>
+    </tbody>
+</table>

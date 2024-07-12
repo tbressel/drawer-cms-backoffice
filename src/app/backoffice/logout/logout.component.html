@@ -1,0 +1,8 @@
+<p>logout works!</p>
+<app-notifications
+    *ngIf="isNotificationWindow"
+    [notificationMessage]="notificationMessage"
+    [isChoiceButtons]="isChoiceButtons"
+    (closeNotification)="onCloseNotification()"
+    (confirmNotification)="onConfirmNotification()">
+</app-notifications>

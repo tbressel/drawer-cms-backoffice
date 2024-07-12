@@ -1,0 +1,20 @@
+<div class="mask"></div>
+<div class="notification__wrapper">
+
+        <div class="notification__window">
+            <div class="notification__window--border">
+                <div class="notification__window--center">
+                    <div class="notification__text">
+                        <p>
+                            {{notificationMessage}}
+                        </p>
+                    </div>
+
+                    <div *ngIf="isChoiceButtons">
+                        <button (click)="onChoice(true)">Confirmer</button>
+                        <button (click)="onChoice(false)">Annuler</button>
+                      </div>
+                </div>
+            </div>
+    </div>
+</div>

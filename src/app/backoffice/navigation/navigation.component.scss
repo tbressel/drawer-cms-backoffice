@@ -1,0 +1,268 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/fonts.scss';
+@import '../../../styles/settings.scss';
+
+
+.navigation-bar__wrapper {
+  position: fixed;
+  z-index: 90;
+  top:0;
+  background-color: $white;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  height: 50px;
+  width: 100%;
+
+  .navigation-bar__burger {
+    position: relative;
+
+    .navigation-overlay__open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      border: none;
+      width: 40px;
+      height: 100%;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  
+  .navigation-bar__title {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    background-color: $white;
+
+    h1 {
+      color: $black;
+      font-weight: 600;
+      font-size: calc($font-body + 0.2rem);
+    }
+  }
+
+
+}
+
+
+
+
+
+.navigation-overlay__mask {
+  position: fixed;
+  display: none;
+  background-color: $black-alpha;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  opacity: 0;
+
+  &.visible {
+    display: block;
+    opacity: 1;
+  }
+
+}
+
+.navigation-overlay__wrapper {
+  position: fixed;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  transform: translate3d(-101%, 0, 0);
+  z-index: 101;
+  max-width: calc(100% - 40px);
+  width: 100%;
+  background-color: $white;
+
+  &.open {
+    transform: translateZ(0);
+    transition: 300ms ease-in-out;
+  }
+
+  .navigation-bar__logo {
+    display: none;
+  }
+
+  .navigation-overlay__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 20px 3px;
+    background-color: $white;
+
+
+    .navigation-overlay__title {
+      color: $black;
+      font-weight: 600;
+      font-size: calc($font-body + 0.2rem);
+    }
+
+    .navigation-overlay__close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: transparent;
+      border: none;
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+  }
+
+  .navigation-overlay__menu-left,
+  .navigation-overlay__menu-right {
+    display: block;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+
+    li {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid $grey;
+
+      a {
+        position: relative;
+        display: block;
+        padding: 10px  0.5rem  12px;
+        max-width: calc(100% - 40px);
+        color: $orange;
+        text-transform: uppercase;
+        font-size: calc($font-body - 0.2rem);
+      }
+    }
+  }
+}
+
+//////////////////////   TABLET   ////////////////////
+
+@media screen and (min-width: 750px) {
+ 
+.navigation-bar__wrapper {
+  height: fit-content;
+  
+  .navigation-bar__burger {
+    display: none;
+  }
+  .navigation-bar__title {
+    display: none;
+  }
+}
+
+.navigation-overlay__mask {
+  display: none;
+ 
+  &.visible {
+    display: none;
+  }
+}
+
+.navigation-overlay__wrapper {
+  position: relative;
+  display: flex;
+  transform: none;
+  max-width: 100%;
+  width: 100%;
+  transition: none ;
+
+  .navigation-bar__logo {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    background-color: transparent;
+    width: fit-content;
+
+    img {
+      width: 50px;
+      padding: 0 10px;
+    }
+  }
+
+  .navigation-overlay__header {
+
+    display: none;
+
+
+
+    .navigation-overlay__title {
+      color: $black;
+      font-weight: 600;
+      font-size: calc($font-body + 0.2rem);
+    }
+
+    .navigation-overlay__close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: transparent;
+      border: none;
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+  }
+
+  .navigation-overlay__menu-left {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  
+
+    li {
+      display: flex;
+      align-items: center;
+      word-wrap: normal;
+      white-space: nowrap;
+      width: fit-content;
+
+      a {
+        max-width: 100%;
+      }
+    }
+  }
+  .navigation-overlay__menu-right {
+    display: flex;
+    justify-content: flex-end;
+    white-space: nowrap;
+    width: 100%;
+  
+
+    li {
+      display: flex;
+      align-items: center;
+      word-wrap: normal;
+      width: fit-content;
+
+      a {
+        max-width: 100%;
+      }
+    }
+  }
+}
+}

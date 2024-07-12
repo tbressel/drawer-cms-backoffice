@@ -1,0 +1,267 @@
+
+
+
+.color-red {
+    color: red;
+}
+
+.color-blue {
+    color: blue;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-yellow {
+    color: yellow;
+}
+
+.color-orange {
+    color: orange;
+}
+
+.color-purple {
+    color: purple;
+}
+
+.color-black {
+    color: black;
+}
+
+.color-white {
+    color: white;
+}
+
+.color-brown {
+    color: #A86954;
+}
+
+.background-red {
+    background-color: red;
+}
+
+.background-blue {
+    background-color: blue;
+}
+
+.background-green {
+    background-color: green;
+}
+
+.background-yellow {
+    background-color: yellow;
+}
+
+.background-orange {
+    background-color: orange;
+}
+
+.background-purple {
+    background-color: purple;
+}
+
+.background-black {
+    background-color: black;
+}
+
+.background-white {
+    background-color: white;
+}
+
+.background-grey {
+    background-color: grey;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.hashtag {
+    font-weight: bold;
+
+    &::before {
+        content: '#';
+    }
+}
+
+.link {
+    text-shadow: 4px 3px 4px black;
+    transition: 300ms;
+
+    &:hover {
+        color: green;
+        background-color: transparent;
+        transition: 300ms;
+        text-shadow: 4px 3px 4px rgb(26, 206, 71);
+    }
+
+}
+
+.file {
+    text-shadow: 4px 3px 4px black;
+    transition: 300ms;
+
+    &:hover {
+        color: green;
+        transition: 300ms;
+        text-shadow: 4px 3px 4px rgb(26, 206, 71);
+    }
+
+    &::before {
+        content: '💾 < ';
+        margin-right: 5px;
+    
+    }
+
+}
+
+
+.code {
+    display: block;
+    font-family: 'GemLowRes';
+    color: black;
+    background-color: aliceblue;
+    line-height: 1rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 5px;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+
+}
+
+.border-red {
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 1rem;
+    background-color: #deb88763;
+
+    &::before {
+        content: "❕";
+        display: block;
+        position: relative;
+        background-color: brown;
+        border-radius: 50%;
+        width: 2rem;
+        text-align: center;
+        padding: .5rem;
+        top: -20px;
+        left: -20px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: black;
+    }
+
+    p {
+        margin-top: -20px;
+    }
+}
+
+.border-green {
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 1rem;
+    background-color: rgb(142 222 135 / 47%);
+
+    &::before {
+        content: "✔️";
+        display: block;
+        position: relative;
+        background-color: green;
+        border-radius: 50%;
+        width: 2rem;
+        text-align: center;
+        padding: .5rem;
+        top: -20px;
+        left: -20px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: black;
+    }
+
+    p {
+        margin-top: -20px;
+    }
+}
+.border-yellow {
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 1rem;
+    background-color: rgb(213 222 135 / 28%);
+
+    &::before {
+        content: "⁉️";
+        display: block;
+        position: relative;
+        background-color: yellow;
+        border-radius: 50%;
+        width: 2rem;
+        text-align: center;
+        padding: .5rem;
+        top: -20px;
+        left: -20px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: black;
+    }
+
+    p {
+        margin-top: -20px;
+    }
+}
+
+
+.keyboard-key {
+    background-color: #ffffff;
+    border: 2px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 5px;
+    font-size: 1rem;
+    color: #333333;
+    transition: all 0.2s ease;
+}
+
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-item {
+    position: relative;
+    margin-left: 10px;
+    padding: 5px;
+
+    &::before {
+        content: '•';
+        position: absolute;
+        left: -10px;
+    }
+}
+
+
+@media screen and (min-width: 550px) {
+
+
+.code {
+   
+    font-size: 1.5rem;
+
+
+}
+    
+}
+
+

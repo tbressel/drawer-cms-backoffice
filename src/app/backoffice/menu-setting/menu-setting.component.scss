@@ -1,0 +1,110 @@
+@import '../../../styles/colors.scss';
+
+.desktop-falcon {
+    padding: 0 10px;
+
+    .add-button {
+        
+        margin: 10px;
+    }
+
+    .navigation__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        border: 2px solid black;
+        background-color: $grass5;
+        
+
+
+        .item__menu-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+            border-bottom: 1px solid #000;
+
+
+            .item__menu-order {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: 600;
+
+
+                .item__menu-place {
+                    margin: 5px;
+
+                    p {
+                        margin: 0;
+                        padding: 5px;
+                    }
+                }
+
+                .item__menu-button {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .item__menu-up,
+                    .item__menu-down {
+                        padding: 5px;
+                        margin: 5px;
+                    }
+                }
+            }
+
+            .item__menu-description {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+                padding: 5px;
+                margin: 5px;
+
+
+                .item__menu-label {
+                    margin: 5px;
+
+                    p {
+                        margin: 0;
+                        padding: 5px;
+                        text-transform: capitalize;
+                    }
+                }
+
+                .item__menu-link {
+                    margin: 5px;
+
+                    p {
+                        margin: 0;
+                        padding: 5px;
+                        text-transform: lowercase;
+                    }
+                }
+
+            }
+
+            .item__menu-actions {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+
+                .item__menu-update,
+                .item__menu-delete {
+                    padding: 5px;
+                    margin: 5px;
+                }
+            }
+        }
+    }
+
+   
+
+
+}

@@ -1,0 +1,312 @@
+<app-pages *ngIf="wholeArticle && wholeArticle.length > 0" [routeTypeProps]="'edit-article'"
+    [wholeArticle]="wholeArticle"></app-pages>
+
+
+
+<!--------------------------------------------------------------------------------------- 
+------------------------------------  CONTENU ACTUEL  ----------------------------------- 
+---------------------------------------------------------------------------------------->
+
+<div *ngIf="wholeArticle" class="article__wrapper">
+    <header *ngIf="wholeArticle[0]?.page === 1" class="header__wrapper">
+
+        <div class="header__article-title">
+            <h1>{{wholeArticle[0]?.article_title}}</h1>
+        </div>
+
+        <div class="header__article-bloc--wrapper">
+
+            <div class="header__article-bloc--left">
+                <div class="header__article-description">
+                    <p [innerHTML]="wholeArticle[0]?.article_description"></p>
+                </div>
+                <div class="header__article-infos">
+                    <p>par <span class="italic">{{wholeArticle[0]?.username}}</span> le <span
+                            class="italic">{{wholeArticle[0]?.creation_date | date: 'd MMMM yyyy'}}</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="header__article-bloc--right">
+                <div class="header__article-cover">
+                    <img [src]="baseUrl + '/images/' + wholeArticle[0]?.article_cover" alt="">
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        <section id="{{content.id_contents}}" *ngFor="let content of articleContents" class="main__content--wrapper">
+            <div class="tools__wrapper">
+                <span class="tools__items" (click)="removeContent(content.id_contents)">🗑️</span>
+                <span class="tools__items" (click)="editContent(content.id_contents)">🖊️</span>
+            </div>
+
+            <div *ngIf="content?.title_left || content?.text_left || content?.image_left"
+                class="main__article-box--left">
+                <div *ngIf="content.title_left" class="main__article-subtitle--left">
+                    <h2 class="main__content-subtitle--left">{{content.title_left}}</h2>
+                </div>
+                <div *ngIf="content.text_left" class="main__article-text--left">
+                    <p [innerHTML]="content.text_left"></p>
+                </div>
+                <div *ngIf="content.image_left" class="main__article-cover--left">
+                    <img [src]="baseUrl + '/images/' + content.image_left" alt="">
+                </div>
+
+            </div>
+
+            <div *ngIf="content?.title_center || content?.text_center || content?.image_center"
+                class="main__article-box--center">
+                <div *ngIf="content.title_center" class="main__article-subtitle--center">
+                    <h2 class="main__content-subtitle--center">{{content.title_center}}</h2>
+                </div>
+                <div *ngIf="content.text_center" class="main__article-text--center">
+                    <p [innerHTML]="content.text_center"></p>
+                </div>
+                <div *ngIf="content.image_center" class="main__article-cover--center">
+                    <img [src]="baseUrl + '/images/' + content.image_center" alt="">
+                </div>
+
+            </div>
+
+            <div *ngIf="content?.title_right || content?.text_right || content?.image_right"
+                class="main__article-box--right">
+
+                <div *ngIf="content.title_right" class="main__article-subtitle--right">
+                    <h2 class="main__content-subtitle--left">{{content.title_right}}</h2>
+                </div>
+                <div *ngIf="content.text_right" class="main__article-text--right">
+                    <p [innerHTML]="content.text_right"></p>
+                </div>
+                <div *ngIf="content.image_right" class="main__article-cover--right">
+                    <img [src]="baseUrl + '/images/' + content.image_right" alt="">
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 
+---------------------------------------------------------------------------------------------------------- 
+------------------------------------  BARRE D'OUTILS  ----------------------------------- 
+----------------------------------------------------------------------------------------------------------
+-->
+        <section *ngIf="showTools">
+            <app-tool-bar [activeTextAreaId]="activeTextAreaId"></app-tool-bar>
+        </section>
+    </main>
+</div>
+
+
+<div class="choice-buttons__wrapper">
+
+    <div *ngIf="!showSection">
+        <button (click)="goToNextPage(wholeArticle[0].id_articles, wholeArticle[0].page)">Créer une nouvelle
+            page</button>
+    </div>
+
+    <div class="add-button">
+        <p>Ajouter du contenu</p>
+        <button (click)="toggleForm()">➕</button>
+    </div>
+</div>
+
+
+
+
+
+<footer class="article__wrapper article__footer">
+    <!-------------------------------------------------------------------------------------------------------- 
+-----------------------------------------  CHOIX DE TEMPLATE  -------------------------------------------- 
+--------------------------------------------------------------------------------------------------------->
+    <form *ngIf="showSection" (submit)="submitTemplateForm(); $event.preventDefault()" class="footer__form--wrapper">
+        <div>
+            <fieldset class="template__wrapper-fildsets">
+                <legend>Choisissez une template</legend>
+                <div class="template__fieldset">
+                    <input type="radio" id="option1" name="template-choice" [(ngModel)]="templateChoice" value="1"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id1.png" alt="">
+                </div>
+                <div class="template__fieldset">
+                    <input type="radio" id="option2" name="template-choice" [(ngModel)]="templateChoice" value="2"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id2.png" alt="">
+                </div>
+                <div class="template__fieldset">
+                    <input type="radio" id="option3" name="template-choice" [(ngModel)]="templateChoice" value="3"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id3.png" alt="">
+                </div>
+                <div class="template__fieldset">
+                    <input type="radio" id="option4" name="template-choice" [(ngModel)]="templateChoice" value="4"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id4.png" alt="">
+                </div>
+                <div class="template__fieldset">
+                    <input type="radio" id="option5" name="template-choice" [(ngModel)]="templateChoice" value="5"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id5.png" alt="">
+                </div>
+                <div class="template__fieldset">
+                    <input type="radio" id="option6" name="template-choice" [(ngModel)]="templateChoice" value="6"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id6.png" alt="">
+                </div>
+                <div class="template__fieldset">
+                    <input type="radio" id="option7" name="template-choice" [(ngModel)]="templateChoice" value="7"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id7.png" alt="">
+                </div>
+                <div class="template__fieldset">
+                    <input type="radio" id="option8" name="template-choice" [(ngModel)]="templateChoice" value="8"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id8.png" alt="">
+                </div>
+                <div class="template__fieldset">
+                    <input type="radio" id="option9" name="template-choice" [(ngModel)]="templateChoice" value="9"
+                        class="template__button-radio">
+                    <img src="./assets/img/templates/template_id9.png" alt="">
+                </div>
+            </fieldset>
+            <button type="submit">Valider le template</button>
+        </div>
+    </form>
+    <!-------------------------------------------------------------------------------------------------------- 
+------------------------------------  FORMULAIRE DE NOUVEAU DE CONTENU  ----------------------------------- 
+---------------------------------------------------------------------------------------------------------->
+    <form *ngIf="showContentForm" (submit)="submitAddTemplate(); $event.preventDefault()">
+        <div class="main__content--form">
+            <div *ngIf="templateDataForm?.isTitleLeft || templateDataForm?.isTextLeft || templateDataForm?.isImageLeft"
+                class="main__article-box--left">
+                <div *ngIf="templateDataForm?.isTitleLeft" class="main__article-subtitle--left">
+                    <input class="main__content-subtitle--left" type="text" placeholder="Titre de gauche"
+                        name="titleLeft" [(ngModel)]="titleLeft">
+                </div>
+                <div *ngIf="templateDataForm?.isTextLeft" class="main__article-text--left">
+                    <textarea name="text-left" id="text-left" placeholder="Texte de gauche" [(ngModel)]="textLeft"
+                        (focus)="setActiveTextArea('text-left')"></textarea>
+                </div>
+                <div *ngIf="templateDataForm?.isImageLeft" class="main__article-cover--left">
+                    <input type="file" name="imageLeft" (change)="onFileChangeLeft($event)">
+                    <img *ngIf="previewImageUrlLeft" [src]="previewImageUrlLeft" class="preview-image">
+                </div>
+            </div>
+
+            <div *ngIf="templateDataForm?.isTitleCenter || templateDataForm?.isTextCenter || templateDataForm?.isImageCenter"
+                class="main__article-box--center">
+                <div *ngIf="templateDataForm?.isTitleCenter" class="main__article-subtitle--center">
+                    <input class="main__content-subtitle--center" type="text" placeholder="Titre au centre"
+                        name="titleCenter" [(ngModel)]="titleCenter">
+                </div>
+                <div *ngIf="templateDataForm?.isTextCenter" class="main__article-text--center">
+                    <textarea name="text-center" id="text-center" placeholder="Texte au centre" [(ngModel)]="textCenter"
+                        (focus)="setActiveTextArea('text-center')"></textarea>
+                </div>
+                <div *ngIf="templateDataForm?.isImageCenter" class="main__article-cover--center">
+                    <input type="file" name="imageCenter" (change)="onFileChangeCenter($event)">
+                    <img *ngIf="previewImageUrlCenter" [src]="previewImageUrlCenter" class="preview-image">
+
+                </div>
+            </div>
+
+            <div *ngIf="templateDataForm?.isTitleRight || templateDataForm?.isTextRight || templateDataForm?.isImageRight"
+                class="main__article-box--right">
+
+                <div *ngIf="templateDataForm?.isTitleRight" class="main__article-subtitle--right">
+                    <input class="main__content-subtitle--right" type="text" placeholder="Titre de droite"
+                        name="titleRight" [(ngModel)]="titleRight">
+                </div>
+
+                <div *ngIf="templateDataForm?.isTextRight" class="main__article-text--right">
+                    <textarea name="text-right" id="text-right" placeholder="Texte de droite" [(ngModel)]="textRight"
+                        (focus)="setActiveTextArea('text-right')"></textarea>
+                </div>
+
+                <div *ngIf="templateDataForm?.isImageRight" class="main__article-cover--right">
+                    <input type="file" name="imageRight" (change)="onFileChangeRight($event)">
+                    <img *ngIf="previewImageUrlRight" [src]="previewImageUrlRight" class="preview-image">
+                </div>
+            </div>
+        </div>
+        <button type="submit">Valider</button>
+    </form>
+    <!-------------------------------------------------------------------------------------------------------- 
+------------------------------------  FORMULAIRE D'EDITION DU CONTENU  ----------------------------------- 
+---------------------------------------------------------------------------------------------------------->
+    <section class="edit-component__wrapper" *ngIf="editComponent">
+
+        
+        <form (submit)="submitEditedContent(); $event.preventDefault()">
+        <div class="edit-main__content--form">
+                <div *ngIf="wholeArticle[0]?.title_left || wholeArticle[0]?.text_left || wholeArticle[0]?.image_left"
+                    class="edit-main__article-box--left">
+                    <div *ngIf="wholeArticle[0]?.title_left" class="edit-main__article-subtitle--left">
+                        <input class="edit-main__content-subtitle--left" type="text" name="titleLeft"
+                            [(ngModel)]="wholeArticle[0].title_left">
+                    </div>
+                    <div *ngIf="wholeArticle[0]?.text_left" class="edit-main__article-text--left">
+                        <textarea name="text-left" id="text-left" placeholder="Texte de gauche"
+                            [(ngModel)]="wholeArticle[0].text_left" (focus)="setActiveTextArea('text-left')"></textarea>
+                    </div>
+                    <div *ngIf="wholeArticle[0]?.image_left" class="edit-main__article-cover--left">
+                        <input type="file" name="imageLeft" (change)="onFileChangeLeft($event)">
+                        <img *ngIf="!previewImageUrlLeft && wholeArticle[0]?.image_left"
+                            [src]="baseUrl + '/images/' + wholeArticle[0]?.image_left" class="preview-image">
+
+                        <img *ngIf="previewImageUrlLeft" [src]="previewImageUrlLeft" class="preview-image">
+                    </div>
+                </div>
+
+                <div *ngIf="wholeArticle[0]?.title_center || wholeArticle[0]?.text_center || wholeArticle[0]?.image_center"
+                    class="edit-main__article-box--center">
+                    <div *ngIf="wholeArticle[0]?.title_center" class="edit-main__article-subtitle--center">
+                        <input class="edit-main__content-subtitle--center" type="text" placeholder="Titre au centre"
+                            name="titleCenter" [(ngModel)]="wholeArticle[0].title_center">
+                    </div>
+                    <div *ngIf="wholeArticle[0]?.text_center" class="edit-main__article-text--center">
+                        <textarea name="text-center" id="text-center" placeholder="Texte au centre"
+                            [(ngModel)]="wholeArticle[0].text_center"
+                            (focus)="setActiveTextArea('text-center')"></textarea>
+                    </div>
+                    <div *ngIf="wholeArticle[0]?.image_center" class="edit-main__article-cover--center">
+                        <input type="file" name="imageCenter" (change)="onFileChangeCenter($event)">
+                        <img *ngIf="!previewImageUrlCenter && wholeArticle[0]?.image_center"
+                            [src]="baseUrl + '/images/' + wholeArticle[0]?.image_center" class="preview-image">
+                        <img *ngIf="previewImageUrlCenter" [src]="previewImageUrlCenter" class="preview-image">
+
+                    </div>
+                </div>
+
+                <div *ngIf="wholeArticle[0]?.title_right || wholeArticle[0]?.text_right || wholeArticle[0]?.image_right"
+                    class="edit-main__article-box--right">
+
+                    <div *ngIf="wholeArticle[0]?.title_right" class="edit-main__article-subtitle--right">
+                        <input class="edit-main__content-subtitle--right" type="text" placeholder="Titre de droite"
+                            name="titleRight" [(ngModel)]="wholeArticle[0].title_right">
+                    </div>
+
+                    <div *ngIf="wholeArticle[0]?.text_right" class="edit-main__article-text--right">
+                        <textarea name="text-right" id="text-right" placeholder="Texte de droite"
+                            [(ngModel)]="wholeArticle[0].text_right"
+                            (focus)="setActiveTextArea('text-right')"></textarea>
+                    </div>
+
+                    <div *ngIf="wholeArticle[0]?.image_right" class="edit-main__article-cover--right">
+                        <input type="file" name="imageRight" (change)="onFileChangeRight($event)">
+                        <!-- Affiche l'image à partir de wholeArticle[0]?.image_right si previewImageUrlRight n'est pas défini -->
+                        <img *ngIf="!previewImageUrlRight && wholeArticle[0]?.image_right"
+                            [src]="baseUrl + '/images/' + wholeArticle[0]?.image_right" class="preview-image">
+                        <!-- Sinon, affiche l'image de l'aperçu si previewImageUrlRight est défini -->
+                        <img *ngIf="previewImageUrlRight" [src]="previewImageUrlRight" class="preview-image">
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Valider</button>
+            <button type="button" (click)="closeEditComponent()">Annuler</button>
+
+
+        </form>
+    </section>
+</footer>

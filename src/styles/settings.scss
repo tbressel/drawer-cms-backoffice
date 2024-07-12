@@ -1,0 +1,21 @@
+@import './colors.scss';
+@import './classes.scss';
+
+
+$font-body: 1rem;
+
+
+// disk unit icon folder
+$unit-letter-display: none;
+
+$unit-icon-width: 80px;
+$unit-icon0-display: default;
+$unit-icon1-display: none;
+
+$unit-name-size: calc($font-body - 0.3rem);
+$unit-name-color: $orange;
+
+// unit files
+$files-title-display: none;
+$files-state-display: default;
+$files-name-size: calc($font-body - 0.3rem);
