@@ -1,80 +1,142 @@
-@import '../../../styles/colors.scss';
-
-.add-button {
-    
-    margin: 10px;
-}
-
-.all-files__wrapper {
-    border: 2px solid #000;
-    background-color: $grass5;
-    border-collapse: collapse;
-    width: 100%;
+@import '../../../styles/settings.scss';
 
 
-    .all-files__header {
-        background-color: $grass8;
 
-        .all-files__column {
-            
-            padding: 10px;
-            border-bottom: 2px solid #000;
-            font-weight: bold;
-        }
+.add-file__wrapper {
+    display: grid;
+    margin: 65px 10px 0 10px;
 
+    .add-file__top {
+        display: flex;
+        align-items: center;
     }
 
-    .all-files__body {
-        background-color: $grass5;
+    p {
+        font-size: 0.8rem;
+        font-style: italic;
+        text-align: center; 
+    }
 
-        .all-files__row {
+    button {
+        border: none;
+    }
+
+    form {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+
+        label {
+        word-wrap: break-word;
+        white-space: nowrap;
+        font-size: 0.8rem;
+        font-style: italic;
+        text-align: center; 
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid $grey2;
+        
+        }
+         button {
+            word-wrap: break-word; 
+         }
+    }
+}
+
+
+
+
+.id{
+color: $black;
+text-align: center;
+}
+
+.title {
+    font-size: 1rem;
+    color: $orange;
+    text-transform: capitalize;
+}
+
+.details {
+    font-size: .8rem;
+    .category {
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .date {
+        font-weight: 100;
+        font-style: italic;
+    }
+    
+    .author {
+        font-weight: 100;
+        font-style: italic;
+    }
+}
+
+.file__wrapper {
+    border: 1px solid $grey2;
+    margin: 20px 10px 0 10px;
+    width: -webkit-fill-available;
+
+
+    .file__header {
+        background-color: $grey;
+
+        .file__row th {
+            padding: 5px;
+            word-wrap: break-word;
+            vertical-align: middle;
+            text-align: center;
+
+            &:nth-child(2) {
+                text-align: left;
+            }
+        }        
+    }
+
+
+    .file__body {
+        background-color: $white;
+
+        .file__row {
             
-            border-bottom: 1px solid #000;
+            border-bottom: 1px solid $grey;
 
 
-            .all-files__column {
+            .file__column {
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
-                
-                padding: 10px;
             }
 
-            .all-files__content {
+            .file__content {
                 vertical-align: middle;
             }
         }
 
         .icon-displayed {
-            content: url('../../../assets/img/icons/eye-open.svg');
+             content: url('../../../assets/img/icons/eye-open.svg');
             max-width: 20px;
-            margin: 10px;
+            margin: 5px;
             
             }
             
             .icon-not-displayed {
                 content: url('../../../assets/img/icons/eye-close.svg');
                 max-width: 20px;
-                margin: 10px;
+                margin: 5px;
          
         }
 
         .edit-icon,
         .delete-icon {
-            padding: 10px;
+            padding: 5px;
         }
     }
 }
-
-@media screen and (min-width: 550px) {
-
-                    .icon-displayed,
-                    .icon-not-displayed,
-                    .edit-icon,
-                    .delete-icon {
-                        // cursor: url('../../../assets/icons/atari-arrow1.png'), auto;                          
-                    }
-
-
-                
-            }

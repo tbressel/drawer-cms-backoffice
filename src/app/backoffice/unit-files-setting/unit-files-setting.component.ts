@@ -77,7 +77,19 @@ export class UnitFilesSettingComponent implements OnInit {
     this.reload.triggerReload();
   }
 
+  /**
+   * 
+   * Methode to navigate to the article details
+   * 
+   * @param article 
+   * @param key 
+   * @returns 
+   */
+  getArticlePropertyValue(article: UnitFilesModel, key: string): any {
+    return article[key as keyof UnitFilesModel];
+  }
 
+    
 
   submitForm(): void {
     if (this.file) {

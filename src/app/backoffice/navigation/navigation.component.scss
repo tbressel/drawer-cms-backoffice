@@ -178,7 +178,8 @@
 }
 
 .navigation-overlay__wrapper {
-  position: relative;
+  position: fixed;
+  height: fit-content;
   display: flex;
   transform: none;
   max-width: 100%;
