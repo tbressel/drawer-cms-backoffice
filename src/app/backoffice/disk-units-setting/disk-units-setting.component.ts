@@ -59,6 +59,17 @@ export class DiskUnitsSettingComponent implements OnInit{
     this.reload.triggerReload();
   }
 
+  /**
+   * 
+   * Methode to navigate to the article details
+   * 
+   * @param article 
+   * @param key 
+   * @returns 
+   */
+  getArticlePropertyValue(article: DiskUnitModel, key: string): any {
+    return article[key as keyof DiskUnitModel];
+  }
 
     
   submitForm(): void {

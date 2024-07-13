@@ -1,46 +1,51 @@
-<div class="desktop-falcon">
 
+
+<div class="add-folder__wrapper">
+    <p>Ajouter un nouveau dossier</p>
+    <button (click)="toggleDiskForm()">🔻</button>
     
-    <div class="add-button">
-        <p>Ajouter une nouvelle unitée de disk</p>
-    <button (click)="toggleDiskForm()">➕</button>
-
     <form (submit)="submitForm(); $event.preventDefault()" *ngIf="showDiskSection">
-        <label for="label">Label :</label>
+        <label for="label">Label:</label>
         <input type="text" id="label" name="label" [(ngModel)]="label">
-        <label for="label">Letter :</label>
+        <label for="label">Letter:</label>
         <input type="text" id="letter" name="letter" [(ngModel)]="letter">
         <button type="submit">Ajouter</button>
     </form>
 </div>
-    
-    <ul class="navigation__container">
-        <ng-container *ngFor="let itemUnit of dataUnit">
-            <li id={{itemUnit.id_disk_units}} class="item__unit-container">
-               
-                <div class="item__unit-description">
-
-                    <div class="item__unit-letter">
-                        <p>{{itemUnit.letter}}</p>
-                    </div>
-
-                    <div class="item__unit-label">
-                        <p>{{itemUnit.label}}</p>
-                    </div>
-
-                </div>
-
-                <div class="item__unit-actions">
-                    <p class="item__unit-update">🖊️</p>
-                    <p class="item__unit-delete" (click)="deleteItem(itemUnit.id_disk_units)">❌</p>                
-                </div>
-            </li>
-        </ng-container>
-    </ul>
 
 
+<table class="folder__wrapper" *ngIf="dataUnit && dataUnit.length > 0">
+    <thead class="folder__header">
+        <tr class="folder__row">
+            <th class="id">
+                ID
+            </th>
+            <th>
+                <tr class="title">Lettre</tr>
+                <tr class="details">
+                    <span class="category">Label</span></tr>
+            </th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
 
-
-
-
-</div>
+    <tbody  class="folder__body">
+        <tr class="folder__row" *ngFor="let itemUnit of dataUnit">
+            <td id={{itemUnit.id_disk_units}} class="id">
+                {{ getArticlePropertyValue(itemUnit, 'id_disk_units') }}
+            </td>
+            <td>
+                <tr class="title">
+                    {{ getArticlePropertyValue(itemUnit, 'letter') }}
+                </tr>
+                <tr class="details">
+                    <span class="author">{{ getArticlePropertyValue(itemUnit, 'label') }}</span>
+                </tr>
+            </td>
+            <td class="folder__column">
+                <i class="edit-icon">🖊️</i>
+                <i class="delete-icon" (click)="deleteItem(itemUnit.id_disk_units)">❌</i>
+            </td>
+        </tr>
+    </tbody>
+</table>

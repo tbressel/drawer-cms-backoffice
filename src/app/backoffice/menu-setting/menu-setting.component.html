@@ -1,58 +1,57 @@
 <app-notifications *ngIf="isNotificationWindow" [notificationMessage]="notificationMessage"></app-notifications>
 
-
-<div class="desktop-falcon">
-
-<div class="add-button">
+<div class="add-menu__wrapper">
     <p>Ajouter un nouveau menu</p>
-    <button (click)="toggleForm()">➕</button>
+    <button (click)="toggleForm()">🔻</button>
     
     <form (submit)="submitForm(); $event.preventDefault()" *ngIf="showForm">
-        <label for="name-menu">Nom :</label>
+        <label for="name-menu">Nom: </label>
         <input type="text" id="name-menu" name="name" [(ngModel)]="name">
-        <button type="submit">Ajouter</button>
+        <button type="submit">OK</button>
     </form>
 </div>
+
+
+<table class="menu-setting__wrapper" *ngIf="dataMenu && dataMenu.length > 0">
+    <thead class="menu-setting__header">
+        <tr class="menu-setting__row">
+            <th class="id">
+                ID
+            </th>
+            <th>
+                <tr class="title">Menu</tr>
+                <tr class="details">
+                    <span class="author">/chemin</span></tr>
+            </th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
+
+    <tbody  class="menu-setting__body">
+        <tr class="menu-setting__row" *ngFor="let itemMenu of dataMenu">
+            <td id={{itemMenu.id_menu}} class="id">
+                {{ getArticlePropertyValue(itemMenu, 'place') }}
+            </td>
+            <td>
+                <tr class="title">
+                    {{ getArticlePropertyValue(itemMenu, 'name') }}
+                </tr>
+                <tr class="details">
+                    <span class="author">{{ getArticlePropertyValue(itemMenu, 'link') }}</span>
+                </tr>
+            </td>
+            <td class="menu-setting__column">
+                <i class="item__menu-up" (click)="upItem(itemMenu.id_menu)">⬆️</i>
+                <i class="item__menu-down" (click)="downItem(itemMenu.id_menu)">⬇️</i>
+                <i class="edit-icon">🖊️</i>
+                <i class="delete-icon" (click)="deleteItem(itemMenu.id_menu)">❌</i>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
     
-
-    <ul class="navigation__container">
-        <ng-container *ngFor="let itemMenu of dataMenu">
-            <li id={{itemMenu.id_menu}} class="item__menu-container">
-                <div class="item__menu-order">
-
-                    <div class="item__menu-place">
-                        <p>{{itemMenu.place}}</p>
-                    </div>
-
-                    <div class="item__menu-button">
-                        <p class="item__menu-up" (click)="upItem(itemMenu.id_menu)">⬆️</p>
-                        <p class="item__menu-down" (click)="downItem(itemMenu.id_menu)">⬇️</p>
-                    </div>
-
-                </div>
-
-                <div class="item__menu-description">
-
-                    <div class="item__menu-label">
-                        <p>{{itemMenu.name}}</p>
-                    </div>
-
-                    <div class="item__menu-link">
-                        <p>{{itemMenu.link}}</p>
-                    </div>
-
-                </div>
-
-                <div class="item__menu-actions">
-                    <p class="item__menu-update">🖊️</p>
-                    <p class="item__menu-delete" (click)="deleteItem(itemMenu.id_menu)">❌</p>                
-                </div>
-            </li>
-        </ng-container>
-    </ul>
-
-
-
-
-
-</div>

@@ -46,7 +46,7 @@ export class MenuSettingComponent {
   showForm = false;
   name: string = '';
   dataMenu: NavigationModel[] = [];
-
+ 
 
 
 isNotificationWindow = false;
@@ -83,6 +83,20 @@ notificationMessage: string = '';
 
   }
 
+
+  /**
+   * 
+   * Methode to navigate to the article details
+   * 
+   * @param article 
+   * @param key 
+   * @returns 
+   */
+  getArticlePropertyValue(article: NavigationModel, key: string): any {
+    return article[key as keyof NavigationModel];
+  }
+
+
   submitForm(): void {
     this.menuSettingService.create(this.name).subscribe({
       next: (data: any) => {
@@ -90,7 +104,7 @@ notificationMessage: string = '';
         this.name = '';
         // Force route reload
         this.reload.triggerReload();
-        this.router.navigate(['/backoffice-main']);
+        this.router.navigate(['/menu-setting']);
 
       },
       error: (error) => {
@@ -105,7 +119,7 @@ notificationMessage: string = '';
       next: (data: any) => {
         // Force route reload
         this.reload.triggerReload();
-        this.router.navigate(['/backoffice-main']);
+        this.router.navigate(['/menu-setting']);
       },
       error: (error) => {
         error =  error.error.message;
@@ -121,7 +135,7 @@ notificationMessage: string = '';
 
         // Force route reload
         this.reload.triggerReload();
-        this.router.navigate(['/backoffice-main']);
+        this.router.navigate(['/menu-setting']);
       },
       error: (error) => {
         error =  error.error.message;
@@ -141,7 +155,7 @@ notificationMessage: string = '';
       next: (data: any) => {
         // Force route reload
         this.reload.triggerReload();
-        this.router.navigate(['/backoffice-main']);
+        this.router.navigate(['/menu-setting']);
       },
       error: (error) => {
        error =  error.error.message;
