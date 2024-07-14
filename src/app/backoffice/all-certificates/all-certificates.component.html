@@ -1,22 +1,37 @@
 <table class="all-certificates__wrapper" *ngIf="dataAllArticles && dataAllArticles.length > 0">
     <thead class="all-certificates__header">
         <tr class="all-certificates__row">
-            <th class="all-certificates__column">ID</th>
-            <th class="all-certificates__column">TITRE</th>
-            <th class="all-certificates__column">NOTE</th>
-            <th class="all-certificates__column">DATE</th>
-            <th class="all-certificates__column">AUTEUR</th>
-
+            <th class="id">
+                ID
+            </th>
+            <th>
+                <tr class="title">CERTIFICATION</tr>
+                <tr>
+                    <span class="author">auteur</span>
+                </tr>
+                <tr class="details">
+                    <span class="category">NOTE / 20</span> - date d'obtention
+                </tr>
+            </th>
         </tr>
     </thead>
-    <tbody class="all-certificates__body">
+
+    <tbody  class="all-certificates__body">
         <tr class="all-certificates__row" *ngFor="let article of dataAllArticles">
-            <td class="all-certificates__column">{{ getArticlePropertyValue(article, 'id_certificates') }}</td>
-            <td class="all-certificates__content">{{ getArticlePropertyValue(article, 'title') }}</td>
-            <td class="all-certificates__content">{{ getArticlePropertyValue(article, 'note') }}</td>
-            <td class="all-certificates__content">{{ getArticlePropertyValue(article, 'creationDate') }}</td>
-            <td class="all-certificates__content">{{ getArticlePropertyValue(article, 'username') }}</td>
-            
+            <td class="id">
+                {{ getArticlePropertyValue(article, 'id_certificates') }}
+            </td>
+            <td>
+                <tr class="title">
+                    {{ getArticlePropertyValue(article, 'title') }}
+                </tr>
+                <tr class="author">
+                    <span>Obtenu par {{ getArticlePropertyValue(article, 'username') }}</span>
+                </tr>
+                <tr class="details">
+                    <span class="category">Note: {{ getArticlePropertyValue(article, 'note') }} / 20</span>, le <time class="date">{{ getArticlePropertyValue(article, 'creationDate') | date:'dd/MM/yyyy'    }}</time>
+                </tr>
+            </td>
         </tr>
     </tbody>
 </table>
