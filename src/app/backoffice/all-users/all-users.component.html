@@ -1,24 +1,36 @@
 <table class="all-users__wrapper" *ngIf="dataAllUsers && dataAllUsers.length > 0">
     <thead class="all-users__header">
         <tr class="all-users__row">
-            <th class="all-users__column">ID</th>
-            <th class="all-users__column">USERNAME</th>
-            <th class="all-users__column">EMAIL</th>
-            <th class="all-users__column">COMPTE ACTIVE</th>
-            <th class="all-users__column">DATE D'INSCRIPTION</th>
-            <th class="all-users__column">ROLE</th>
-            <th class="all-users__column">ACTION</th>
-
+            <th class="id">
+                ID
+            </th>
+            <th>
+                <tr class="title">Username</tr>
+                <tr class="details">
+                    <span class="category">ETAT</span> (date d'inscription)
+                    <span class="author">email d'inscription</span></tr>
+            </th>
+            <th>ACTIONS</th>
         </tr>
     </thead>
-    <tbody class="all-users__body">
+
+    <tbody  class="all-users__body">
         <tr class="all-users__row" *ngFor="let user of dataAllUsers">
-            <td class="all-users__column">{{ getUserPropertyValue(user, 'id_users') }}</td>
-            <td class="all-users__content">{{ getUserPropertyValue(user, 'username') }}</td>
-            <td class="all-users__content">{{ getUserPropertyValue(user, 'email') }}</td>
-            <td class="all-users__content">{{ getUserPropertyValue(user, 'isActivated') }}</td>
-            <td class="all-users__content">{{ getUserPropertyValue(user, 'registrationDate') }}</td>
-            <td class="all-users__content">{{ getUserPropertyValue(user, 'name') }}</td>
+            <td class="id">
+                {{ getUserPropertyValue(user, 'id_users') }}
+            </td>
+            <td>
+                <tr class="title">
+                    {{ getUserPropertyValue(user, 'username') }}
+                </tr>
+                <tr class="details">
+                    <span class="category" [ngClass]="getUserPropertyValue(user, 'isActivated') ? 'green' : 'red'">
+                        {{ getUserPropertyValue(user, 'isActivated') ? 'Actif' : 'Inactif' }}
+                    </span>
+                    (inscrit le <time class="date">{{ getUserPropertyValue(user, 'registrationDate') | date:'dd/MM/yyyy'    }}</time>)
+                    <span class="author">{{ getUserPropertyValue(user, 'email') }}</span>
+                </tr>
+            </td>
             <td class="all-users__column">
                 <ng-container *ngIf="getUserPropertyValue(user, 'isActivated'); else notDisplayed">
                     <i class="icon-displayed" (click)="toggleActivateUser(user)"></i>
@@ -26,10 +38,9 @@
                 <ng-template #notDisplayed>
                     <i class="icon-not-displayed" (click)="toggleActivateUser(user)"></i>
                 </ng-template>
-            
-            
                 <i class="edit-icon" (click)="selectUser(user)">🖊️</i>
-            <i class="delete-icon"  (click)="deleteUser(user)">❌</i></td>
+                <i class="delete-icon" (click)="deleteUser(user)">❌</i>
+            </td>
         </tr>
     </tbody>
 </table>

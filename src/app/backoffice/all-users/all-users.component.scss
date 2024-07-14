@@ -1,40 +1,80 @@
+@import '../../../styles/settings.scss';
 @import '../../../styles/colors.scss';
 
 
+.id{
+color: $black;
+text-align: center;
+}
+
+.green {
+    color: $green;
+}
+
+.red {
+    color: $red;
+
+}
+
+.title {
+    font-size: 1rem;
+    color: $orange;
+}
+
+.details {
+    font-size: .8rem;
+    .category {
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .date {
+        font-weight: 100;
+        font-style: italic;
+    }
+    
+    .author {
+        font-weight: 100;
+        font-style: italic;
+    }
+}
 
 .all-users__wrapper {
-    border: 2px solid #000;
-    background-color: $grass5;
-    border-collapse: collapse;
-    width: 100%;
+    border: 1px solid $grey2;
+    margin: 65px 10px 0 10px;
+    width: -webkit-fill-available;
 
 
     .all-users__header {
-        background-color: $grass8;
+        background-color: $grey;
 
-        .all-users__column {
-            
-            padding: 10px;
-            border-bottom: 2px solid #000;
-            font-weight: bold;
+        .all-users__row th {
+            padding: 5px;
+            word-wrap: break-word;
+            vertical-align: middle;
+            text-align: center;
+
+            &:nth-child(2) {
+                text-align: left;
+            }
         }
 
+        
     }
 
+
     .all-users__body {
-        background-color: $grass5;
+        background-color: $white;
 
         .all-users__row {
             
-            border-bottom: 1px solid #000;
+            border-bottom: 1px solid $grey;
 
 
             .all-users__column {
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
-                
-                padding: 10px;
             }
 
             .all-users__content {
@@ -43,35 +83,22 @@
         }
 
         .icon-displayed {
-            content: url('../../../assets/img/icons/eye-open.svg');
+             content: url('../../../assets/img/icons/eye-open.svg');
             max-width: 20px;
-            margin: 10px;
+            margin: 5px;
             
             }
             
             .icon-not-displayed {
-                 content: url('../../../assets/img/icons/eye-close.svg');
+                content: url('../../../assets/img/icons/eye-close.svg');
                 max-width: 20px;
-                margin: 10px;
+                margin: 5px;
          
         }
 
         .edit-icon,
         .delete-icon {
-            padding: 10px;
+            padding: 5px;
         }
     }
 }
-
-@media screen and (min-width: 550px) {
-
-                    .icon-displayed,
-                    .icon-not-displayed,
-                    .edit-icon,
-                    .delete-icon {
-                        // cursor: url('../../../assets/icons/atari-arrow1.png'), auto;                           
-                    }
-
-
-                
-            }
