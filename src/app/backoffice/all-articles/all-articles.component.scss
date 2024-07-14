@@ -1,6 +1,76 @@
 @import '../../../styles/settings.scss';
 
 
+select,
+textarea,
+input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid $grey2;
+}
+label {
+    padding: 5px;
+}
+img, button {
+    max-width: 100%;
+
+}
+
+.create-article__tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    
+    li {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        border-radius: 5px;
+
+        input[type="checkbox"] {
+            transform: scale(1.5); // Agrandit la checkbox de 50%
+        }
+}
+}
+.create-article__wrapper {
+    display: grid;
+    margin: 65px 10px 0 10px;
+
+
+    p {
+        font-size: 0.8rem;
+        font-style: italic;
+        text-align: center; 
+    }
+
+    button {
+        border: none;
+    }
+
+    form {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        label {
+        word-wrap: break-word; 
+       font-size: 0.8rem;
+        font-style: italic;
+        text-align: center; 
+        }
+
+         button {
+            word-wrap: break-word; 
+         }
+    }
+}
+
+
+
+
 .id{
 color: $black;
 text-align: center;
@@ -31,7 +101,7 @@ text-align: center;
 
 .all-articles__wrapper {
     border: 1px solid $grey2;
-    margin: 65px 10px 0 10px;
+    margin: 20px 10px 0 10px;
     width: -webkit-fill-available;
 
 

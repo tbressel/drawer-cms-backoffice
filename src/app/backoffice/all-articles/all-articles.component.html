@@ -1,3 +1,65 @@
+<div class="create-article__wrapper">
+    <p>Ajouter un nouvel article</p>
+    <button (click)="toggleForm()">🔻</button>
+    
+    <form class="create-article--form" (submit)="submitForm(); $event.preventDefault()"  *ngIf="showForm">
+        <div class="header-article__wrapper">
+        
+            <div class="header__article-bloc--left">
+                
+                <div class="create-article-category--left">
+        
+                    <select (change)="onSelectChange($event)">
+                        <option value="">Sélectionnez une catégorie</option>
+                        <ng-container *ngFor="let category of CategoriesList">
+                            <option [value]="category.id_categories">{{category.name}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+        
+                    <div class="create-article-subtitle--left">
+                        <label for="title-article">Titre de l'article :</label>
+                        <input type="text" id="title-article" name="title" [(ngModel)]="title">
+                    </div>
+                    
+                    <div class="create-article-text--left">
+                        <label for="description-article">Description courte : </label>
+                        <textarea id="description-article" rows="5" cols="33" name="description" [(ngModel)]="description">
+                    </textarea>
+                    </div>
+                </div>
+        
+                <div class="header__article-bloc--right">
+                    <div class="create-article-image--right">
+                        <label for="cover-article"></label>
+                        <input type="file" id="cover-article" name="cover-article" accept="image/*" (change)="onFileChange($event)">
+                        <!-- Utilisez previewImageUrlRight pour l'aperçu de l'image -->
+                        <div *ngIf="previewImageUrlRight">
+                            <img [src]="previewImageUrlRight" alt="">
+                        </div>
+                    </div>
+                </div>
+        
+                    </div>
+                <ul  class="create-article__tags">
+                    <ng-container  *ngFor="let itemTag of tagsList">
+                        <li class="create-article__tag" [style.background-color]="itemTag.color">
+                            <input type="checkbox" id="{{itemTag.id_tags}}" name="{{itemTag.label}}"
+                                (change)="onCheckboxChange($event, itemTag.id_tags)" />
+                            <label for="{{itemTag.id_tags}}">{{itemTag.label}}</label>
+                        </li>
+                    </ng-container>
+                </ul>
+        
+        
+        
+                <button type="submit">Ajouter</button>
+            </form>
+</div>
+
+
+
+
 <table class="all-articles__wrapper" *ngIf="dataAllArticles && dataAllArticles.length > 0">
     <thead class="all-articles__header">
         <tr class="all-articles__row">
