@@ -210,9 +210,7 @@ export class EditArticleComponent implements OnInit {
    * 
    */
   submitTemplateForm(): void {
-
     // console.log("template choisi : ", this.templateChoice + " . Pour l'article id  : ", this.id_articles);
-
     this.contentsService.getTemplate(this.id_articles, this.templateChoice).subscribe({
       next: (data: any) => {
         this.templateDataForm = data.body[0];
@@ -231,8 +229,6 @@ export class EditArticleComponent implements OnInit {
    * Method used to submit the form
    */
   submitAddTemplate(): void {
-
-
 
     this.contentsService.addTemplate(this.id_articles, this.templateChoice, this.titleLeft, this.titleRight, this.titleCenter, this.textLeft, this.textRight, this.textCenter, this.imageLeft, this.imageRight, this.imageCenter, this.attachementLeft, this.attachementRight, this.attachementCenter, this.page)
       .subscribe({

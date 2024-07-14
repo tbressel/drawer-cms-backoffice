@@ -1,19 +1,21 @@
-.tool__form {
+@import '../../../styles/settings.scss';
+@import '../../../styles/colors.scss';
+
+.tool__wrapper {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px solid grey;
-    background-color: darkgrey;
-    padding: 10px;
+    flex-direction: column;
+    background-color: white;
+    padding: 5px;
     position: fixed;
     z-index: 20;
-    left: -1px;
-    // margin-left: calc((100vw - 1600px) / 2);
     width: 100%;
-    max-width: 1600px;
-    border-radius: 5px;
-    top: 72px;
+    top: 50px;
+
+.tool__form {
+    display: flex;
+    justify-content: space-between;
+
+
 
     li:hover {
         //   cursor: url('../../../../assets/icons/atari-arrow1.png'), auto;
@@ -21,6 +23,7 @@
 
     li {
         width: 2rem;
+        padding: 5px;
     }
 }
 
@@ -43,4 +46,6 @@
         //   cursor: url('../../../../assets/icons/atari-arrow1.png'), auto;
         background-color:black;
     }
+}
+
 }

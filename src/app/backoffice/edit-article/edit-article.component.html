@@ -1,11 +1,71 @@
+<!---------------------------  BARRE D'OUTILS  ----------------------------->
+<section *ngIf="showTools">
+    <app-tool-bar [activeTextAreaId]="activeTextAreaId"></app-tool-bar>
+</section>
+
+<!-------------------------  CHOIX DE TEMPLATE  ------------------------>
+<div class="add-templates__wrapper">
+    <p>Ajouter du contenu</p>
+    <button (click)="toggleForm()">🔻</button>
+    <form *ngIf="showSection" (submit)="submitTemplateForm(); $event.preventDefault()" class="footer__form--wrapper">
+
+        <fieldset class="template__wrapper-fildsets">
+            <div class="template__fieldset">
+                <input type="radio" id="option1" name="template-choice" [(ngModel)]="templateChoice" value="1"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id1.png" alt="">
+            </div>
+            <div class="template__fieldset">
+                <input type="radio" id="option2" name="template-choice" [(ngModel)]="templateChoice" value="2"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id2.png" alt="">
+            </div>
+            <div class="template__fieldset">
+                <input type="radio" id="option3" name="template-choice" [(ngModel)]="templateChoice" value="3"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id3.png" alt="">
+            </div>
+            <div class="template__fieldset">
+                <input type="radio" id="option4" name="template-choice" [(ngModel)]="templateChoice" value="4"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id4.png" alt="">
+            </div>
+            <div class="template__fieldset">
+                <input type="radio" id="option5" name="template-choice" [(ngModel)]="templateChoice" value="5"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id5.png" alt="">
+            </div>
+            <div class="template__fieldset">
+                <input type="radio" id="option6" name="template-choice" [(ngModel)]="templateChoice" value="6"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id6.png" alt="">
+            </div>
+            <div class="template__fieldset">
+                <input type="radio" id="option7" name="template-choice" [(ngModel)]="templateChoice" value="7"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id7.png" alt="">
+            </div>
+            <div class="template__fieldset">
+                <input type="radio" id="option8" name="template-choice" [(ngModel)]="templateChoice" value="8"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id8.png" alt="">
+            </div>
+            <div class="template__fieldset">
+                <input type="radio" id="option9" name="template-choice" [(ngModel)]="templateChoice" value="9"
+                    class="template__button-radio">
+                <img src="./assets/img/templates/template_id9.png" alt="">
+            </div>
+        </fieldset>
+        <button class="btn btn-primary" type="submit">Valider le template</button>
+
+    </form>
+</div>
+
+<!------------------------- PAGINATION ------------------------>
 <app-pages *ngIf="wholeArticle && wholeArticle.length > 0" [routeTypeProps]="'edit-article'"
     [wholeArticle]="wholeArticle"></app-pages>
 
-
-
-<!--------------------------------------------------------------------------------------- 
-------------------------------------  CONTENU ACTUEL  ----------------------------------- 
----------------------------------------------------------------------------------------->
+<!-----------------------  CONTENU ACTUEL  --------------------->
 
 <div *ngIf="wholeArticle" class="article__wrapper">
     <header *ngIf="wholeArticle[0]?.page === 1" class="header__wrapper">
@@ -87,95 +147,18 @@
 
         </section>
 
-        <!-- 
----------------------------------------------------------------------------------------------------------- 
-------------------------------------  BARRE D'OUTILS  ----------------------------------- 
-----------------------------------------------------------------------------------------------------------
--->
-        <section *ngIf="showTools">
-            <app-tool-bar [activeTextAreaId]="activeTextAreaId"></app-tool-bar>
-        </section>
+
     </main>
 </div>
 
-
-<div class="choice-buttons__wrapper">
-
-    <div *ngIf="!showSection">
-        <button (click)="goToNextPage(wholeArticle[0].id_articles, wholeArticle[0].page)">Créer une nouvelle
-            page</button>
-    </div>
-
-    <div class="add-button">
-        <p>Ajouter du contenu</p>
-        <button (click)="toggleForm()">➕</button>
-    </div>
+<div class="choice-buttons__wrapper" *ngIf="!showSection">
+    <button *ngIf="!showTools" class="btn btn-primary"
+        (click)="goToNextPage(wholeArticle[0].id_articles, wholeArticle[0].page)">Créer une nouvelle page
+    </button>
 </div>
 
-
-
-
-
-<footer class="article__wrapper article__footer">
-    <!-------------------------------------------------------------------------------------------------------- 
------------------------------------------  CHOIX DE TEMPLATE  -------------------------------------------- 
---------------------------------------------------------------------------------------------------------->
-    <form *ngIf="showSection" (submit)="submitTemplateForm(); $event.preventDefault()" class="footer__form--wrapper">
-        <div>
-            <fieldset class="template__wrapper-fildsets">
-                <legend>Choisissez une template</legend>
-                <div class="template__fieldset">
-                    <input type="radio" id="option1" name="template-choice" [(ngModel)]="templateChoice" value="1"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id1.png" alt="">
-                </div>
-                <div class="template__fieldset">
-                    <input type="radio" id="option2" name="template-choice" [(ngModel)]="templateChoice" value="2"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id2.png" alt="">
-                </div>
-                <div class="template__fieldset">
-                    <input type="radio" id="option3" name="template-choice" [(ngModel)]="templateChoice" value="3"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id3.png" alt="">
-                </div>
-                <div class="template__fieldset">
-                    <input type="radio" id="option4" name="template-choice" [(ngModel)]="templateChoice" value="4"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id4.png" alt="">
-                </div>
-                <div class="template__fieldset">
-                    <input type="radio" id="option5" name="template-choice" [(ngModel)]="templateChoice" value="5"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id5.png" alt="">
-                </div>
-                <div class="template__fieldset">
-                    <input type="radio" id="option6" name="template-choice" [(ngModel)]="templateChoice" value="6"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id6.png" alt="">
-                </div>
-                <div class="template__fieldset">
-                    <input type="radio" id="option7" name="template-choice" [(ngModel)]="templateChoice" value="7"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id7.png" alt="">
-                </div>
-                <div class="template__fieldset">
-                    <input type="radio" id="option8" name="template-choice" [(ngModel)]="templateChoice" value="8"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id8.png" alt="">
-                </div>
-                <div class="template__fieldset">
-                    <input type="radio" id="option9" name="template-choice" [(ngModel)]="templateChoice" value="9"
-                        class="template__button-radio">
-                    <img src="./assets/img/templates/template_id9.png" alt="">
-                </div>
-            </fieldset>
-            <button type="submit">Valider le template</button>
-        </div>
-    </form>
-    <!-------------------------------------------------------------------------------------------------------- 
-------------------------------------  FORMULAIRE DE NOUVEAU DE CONTENU  ----------------------------------- 
----------------------------------------------------------------------------------------------------------->
+<!-----------------------  FORMULAIRE D'AJOUT DE CONTENU  -------------------------->
+<section class="article__wrapper add-content">
     <form *ngIf="showContentForm" (submit)="submitAddTemplate(); $event.preventDefault()">
         <div class="main__content--form">
             <div *ngIf="templateDataForm?.isTitleLeft || templateDataForm?.isTextLeft || templateDataForm?.isImageLeft"
@@ -232,14 +215,10 @@
         </div>
         <button type="submit">Valider</button>
     </form>
-    <!-------------------------------------------------------------------------------------------------------- 
-------------------------------------  FORMULAIRE D'EDITION DU CONTENU  ----------------------------------- 
----------------------------------------------------------------------------------------------------------->
-    <section class="edit-component__wrapper" *ngIf="editComponent">
-
-        
+    <!----------------------  FORMULAIRE D'EDITION DU CONTENU  ----------------------------->
+    <div class="edit-component__wrapper" *ngIf="editComponent">
         <form (submit)="submitEditedContent(); $event.preventDefault()">
-        <div class="edit-main__content--form">
+            <div class="edit-main__content--form">
                 <div *ngIf="wholeArticle[0]?.title_left || wholeArticle[0]?.text_left || wholeArticle[0]?.image_left"
                     class="edit-main__article-box--left">
                     <div *ngIf="wholeArticle[0]?.title_left" class="edit-main__article-subtitle--left">
@@ -308,5 +287,5 @@
 
 
         </form>
-    </section>
-</footer>
+    </div>
+</section>
