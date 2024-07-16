@@ -1,3 +1,5 @@
+
+
 <!---------------------------  BARRE D'OUTILS  ----------------------------->
 <section *ngIf="showTools">
     <app-tool-bar [activeTextAreaId]="activeTextAreaId"></app-tool-bar>
@@ -67,7 +69,7 @@
 
 <!-----------------------  CONTENU ACTUEL  --------------------->
 
-<div *ngIf="wholeArticle" class="article__wrapper">
+<div *ngIf="wholeArticle && !showTools" class="article__wrapper">
     <header *ngIf="wholeArticle[0]?.page === 1" class="header__wrapper">
 
         <div class="header__article-title">
@@ -103,6 +105,9 @@
                 <span class="tools__items" (click)="editContent(content.id_contents)">🖊️</span>
             </div>
 
+            <div class="main__article-box--global">
+
+            
             <div *ngIf="content?.title_left || content?.text_left || content?.image_left"
                 class="main__article-box--left">
                 <div *ngIf="content.title_left" class="main__article-subtitle--left">
@@ -114,8 +119,8 @@
                 <div *ngIf="content.image_left" class="main__article-cover--left">
                     <img [src]="baseUrl + '/images/' + content.image_left" alt="">
                 </div>
-
             </div>
+
 
             <div *ngIf="content?.title_center || content?.text_center || content?.image_center"
                 class="main__article-box--center">
@@ -128,8 +133,8 @@
                 <div *ngIf="content.image_center" class="main__article-cover--center">
                     <img [src]="baseUrl + '/images/' + content.image_center" alt="">
                 </div>
-
             </div>
+
 
             <div *ngIf="content?.title_right || content?.text_right || content?.image_right"
                 class="main__article-box--right">
@@ -144,7 +149,7 @@
                     <img [src]="baseUrl + '/images/' + content.image_right" alt="">
                 </div>
             </div>
-
+        </div>
         </section>
 
 
@@ -213,7 +218,8 @@
                 </div>
             </div>
         </div>
-        <button type="submit">Valider</button>
+        <button class="btn btn-primary" type="submit">Valider</button>
+        <button class="btn btn-secondary" type="button" (click)="cancelButton()">Annuler</button>
     </form>
     <!----------------------  FORMULAIRE D'EDITION DU CONTENU  ----------------------------->
     <div class="edit-component__wrapper" *ngIf="editComponent">
@@ -282,10 +288,10 @@
                     </div>
                 </div>
             </div>
-            <button type="submit">Valider</button>
-            <button type="button" (click)="closeEditComponent()">Annuler</button>
 
-
+            <button class="btn btn-primary" type="submit">Valider</button>
+            <button class="btn btn-secondary" type="button" (click)="cancelButton()">Annuler</button>
+       
         </form>
     </div>
 </section>

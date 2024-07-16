@@ -14,6 +14,22 @@
     border-color: #0056b3;
   }
 
+  .btn-secondary {
+    background-color: #6c757d; /* Couleur de fond différente pour le bouton secondaire */
+    border-color: #6c757d; /* Couleur de bordure différente pour le bouton secondaire */
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62; /* Couleur de fond au survol différente pour le bouton secondaire */
+    border-color: #545b62; /* Couleur de bordure au survol différente pour le bouton secondaire */
+}
+
 
 
 

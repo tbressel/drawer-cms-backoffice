@@ -78,8 +78,24 @@ export class AllCertificatesComponent implements OnInit {
    return article[key as keyof CertificatesListModel];
  }
 
-
-
+/**
+ * 
+ * Method to delete a certificate
+ * 
+ * @param id 
+ */
+ deleteCertificate(id: number): void {
+  
+  this.certificateService.delete(id, this.token).subscribe({
+    next: (data: any) => {
+      this.reload.triggerReload();
+      this.router.navigate(['/all-certificates']);
+    },
+    error: (error) => {
+      console.error('Erreur lors de la suppression de l\'utilisateur', error);
+    }
+  });
+}
 
 
 

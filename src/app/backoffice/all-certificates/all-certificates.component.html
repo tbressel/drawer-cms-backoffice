@@ -13,6 +13,7 @@
                     <span class="category">NOTE / 20</span> - date d'obtention
                 </tr>
             </th>
+            <th>ACTIONS</th>
         </tr>
     </thead>
 
@@ -31,6 +32,9 @@
                 <tr class="details">
                     <span class="category">Note: {{ getArticlePropertyValue(article, 'note') }} / 20</span>, le <time class="date">{{ getArticlePropertyValue(article, 'creationDate') | date:'dd/MM/yyyy'    }}</time>
                 </tr>
+            </td>
+            <td class="all-certificates__column">
+                <i class="delete-icon" (click)="deleteCertificate(article.id_certificates)">❌</i>
             </td>
         </tr>
     </tbody>

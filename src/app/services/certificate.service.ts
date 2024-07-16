@@ -56,6 +56,14 @@ export class CertificateService {
   }
   
 
+  delete(id: number, token: string | null): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    }
+    return this.http.delete(`${CONFIG.baseUrl}/delete-certificate/${id}`, httpOptions);
+  }
 
 
     /**
