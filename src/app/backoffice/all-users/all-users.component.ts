@@ -13,13 +13,16 @@ import { UsersModel } from '../../models/users.model';
 // Services
 import { ReloadService } from '../../services/reload.service';
 import { UsersService } from '../../services/users.service';
+import { NotificationsService } from '../../services/notifications.service';
 
+
+import { NotificationsComponent } from '../notifications/notifications.component';
 
 
 @Component({
   selector: 'app-all-users',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NotificationsComponent],
   templateUrl: './all-users.component.html',
   styleUrl: './all-users.component.scss'
 })
@@ -33,9 +36,16 @@ export class AllUsersComponent implements OnInit {
   dataAllUsers: UsersModel[] = [];
 
 
+isNotificationWindow: boolean = false;
+notificationMessage: string = '';
+
+isLoading: Boolean = false;
+
+
   // Constructor
   constructor(private router: Router,
     private usersService: UsersService,
+    private notificationsService: NotificationsService,    
     private reload: ReloadService) { }
 
 
@@ -45,14 +55,21 @@ export class AllUsersComponent implements OnInit {
    * 
    */
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.reload.reload$.subscribe(() => {
 
       this.usersService.getAll().subscribe({
         next: (data: any) => {
           this.dataAllUsers = data.body;
+          this.isLoading = false;
+
         },
-        error: (error) => console.error(error)
-      });
+        error: (error: any) => {
+          this.isLoading = false;
+          const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+         }      });
     });
     this.reload.triggerReload();
   }
@@ -77,47 +94,63 @@ export class AllUsersComponent implements OnInit {
    */
   toggleActivateUser(user: UsersModel): void {
 
+    this.isLoading = true;
+
     // toggle the isDisplay attribute
     user.isActivated = !user.isActivated;
 
     // Call the service and update the article
     this.usersService.isUserActivated(user.id_users, { isActivated: user.isActivated }).subscribe({
-      next: (response) => {
-        // console.log('Article mis à jour avec succès', response);
+      next: (data: any) => {
+        this.isLoading = false;
+        this.reload.triggerReload();
+        this.notificationsService.displayNotification(this, 'activate-success', 2000, '/all-users', 'client', false);
       },
-      error: (error) => {
-        console.error('Erreur lors de la mise à jour de l\'utilisateur', error);
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+
         user.isActivated = !user.isActivated;
       }
     });
   }
 
 
-  selectUser(user: UsersModel): void {
+  // selectUser(user: UsersModel): void {
 
-    // Assurez-vous que `article` contient un champ `id` ou un champ similaire représentant l'identifiant unique de l'article.
-    this.usersService.select(user.id_users).subscribe({
-      next: (response) => {
+  //   // Assurez-vous que `article` contient un champ `id` ou un champ similaire représentant l'identifiant unique de l'article.
+  //   this.usersService.select(user.id_users).subscribe({
+  //     next: (response) => {
         
-        this.router.navigate([`/edit-user/${user.id_users}`]);
+  //       this.router.navigate([`/edit-user/${user.id_users}`]);
 
-      },
-      error: (error) => {
-        console.error('Erreur lors de la mise à jour de l\'utilisateur', error);
-      }
-    });
-  }
+  //     },
+  //     error: (error) => {
+  //       console.error('Erreur lors de la mise à jour de l\'utilisateur', error);
+  //     }
+  //   });
+  // }
 
 
-
+/**
+ * Method to delete a user
+ * @param user 
+ */
   deleteUser(user: UsersModel): void {
+    this.isLoading = true;
+
     this.usersService.delete(user.id_users).subscribe({
       next: (data: any) => {
+        this.isLoading = false;
         this.reload.triggerReload();
-        this.router.navigate(['/backoffice-main']);
+        this.notificationsService.displayNotification(this, 'ghost-success', 2000, '/all-users', 'client', false);
+
       },
-      error: (error) => {
-        console.error('Erreur lors de la suppression de l\'utilisateur', error);
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
       }
     });
   }

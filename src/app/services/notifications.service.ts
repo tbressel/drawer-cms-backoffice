@@ -22,8 +22,12 @@ export class NotificationsService {
       'login-success': 'Connexion réussie',
       'logout-success': 'Déconnexion réussie',
       'delete-success': 'Suppression réussie',
+      'ghost-success': 'Données personnelles supprimées, ce compte est désormais un compte fantôme',
+      'display-success': 'Modification de l\'affichage réussi',
+      'activate-success': 'Changement du status du compte réussie',
       'add-success': 'Ajout réussi',
       'alert-failure': 'Notification d\'erreur OK',
+      'add-file-failure': 'Il manque le fichier, veuillez choisir un fichier',
       'is-logout': 'Souhaitez-vous vous déconnecter ?',
       'login-need': 'Vous devez être connecté pour accéder à cette page',
      
