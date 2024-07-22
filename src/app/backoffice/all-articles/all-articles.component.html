@@ -1,3 +1,9 @@
+<div *ngIf="isLoading" class="mask"></div>
+<div *ngIf="isLoading" class="spinner"></div>
+
+
+<app-notifications *ngIf="isNotificationWindow" [notificationMessage]="notificationMessage"></app-notifications>
+
 <div class="create-article__wrapper">
     <p>Ajouter un nouvel article</p>
     <button (click)="toggleForm()">🔻</button>

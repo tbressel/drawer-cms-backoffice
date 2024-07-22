@@ -99,7 +99,9 @@ isLoading: Boolean = false;
  * @param id 
  */
  deleteCertificate(id: number): void {
-  
+  this.isLoading = true;
+
+
   this.certificateService.delete(id, this.token).subscribe({
     next: (data: any) => {
       this.isLoading = false;

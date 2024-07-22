@@ -25,9 +25,11 @@ export class NotificationsService {
       'ghost-success': 'Données personnelles supprimées, ce compte est désormais un compte fantôme',
       'display-success': 'Modification de l\'affichage réussi',
       'activate-success': 'Changement du status du compte réussie',
+      'create-article-success': 'Création de l\'article réussie',
       'add-success': 'Ajout réussi',
       'alert-failure': 'Notification d\'erreur OK',
       'add-file-failure': 'Il manque le fichier, veuillez choisir un fichier',
+      'create-article-failure': 'Il manque des informations, le formulaire est incomplet',
       'is-logout': 'Souhaitez-vous vous déconnecter ?',
       'login-need': 'Vous devez être connecté pour accéder à cette page',
      
