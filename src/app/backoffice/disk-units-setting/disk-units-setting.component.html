@@ -1,3 +1,8 @@
+<div *ngIf="isLoading" class="mask"></div>
+<div *ngIf="isLoading" class="spinner"></div>
+
+
+<app-notifications *ngIf="isNotificationWindow" [notificationMessage]="notificationMessage"></app-notifications>
 
 
 <div class="add-folder__wrapper">
@@ -43,7 +48,7 @@
                 </tr>
             </td>
             <td class="folder__column">
-                <i class="edit-icon">🖊️</i>
+                <!-- <i class="edit-icon">🖊️</i> -->
                 <i class="delete-icon" (click)="deleteItem(itemUnit.id_disk_units)">❌</i>
             </td>
         </tr>
