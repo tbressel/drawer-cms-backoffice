@@ -14,6 +14,9 @@ import { Router, NavigationEnd } from '@angular/router';
 // Services
 import { ArticleService } from '../../services/article.service';
 import { ContentsService } from '../../services/contents.service';
+import { ReloadService } from '../../services/reload.service';
+import { NotificationsService } from '../../services/notifications.service';
+
 
 // Models
 import { AddTemplateModel } from '../../models/add-template.model';
@@ -22,6 +25,8 @@ import { GetTemplateModel } from '../../models/get-template.model';
 // Components
 import { PagesComponent } from '../../backoffice/pages/pages.component';
 import { ToolBarComponent } from '../tool-bar/tool-bar.component';
+import { NotificationsComponent } from '../notifications/notifications.component';
+
 
 // Config
 import { CONFIG } from '../../../config';
@@ -29,7 +34,7 @@ import { CONFIG } from '../../../config';
 @Component({
   selector: 'app-edit-article',
   standalone: true,
-  imports: [CommonModule, FormsModule, PagesComponent, ToolBarComponent],
+  imports: [CommonModule, FormsModule, PagesComponent, ToolBarComponent, NotificationsComponent],
   templateUrl: './edit-article.component.html',
   styleUrl: './edit-article.component.scss'
 })
@@ -37,7 +42,12 @@ import { CONFIG } from '../../../config';
 
 export class EditArticleComponent implements OnInit {
 
-// Attributes for toggle sections
+  isNotificationWindow: boolean = false;
+  notificationMessage: string = '';
+
+  isLoading: Boolean = false;
+
+  // Attributes for toggle sections
   editComponent: boolean = false;
   showContentForm: boolean = false;
   showSection: boolean = false;
@@ -50,7 +60,7 @@ export class EditArticleComponent implements OnInit {
 
   templateData: AddTemplateModel | undefined;
   templateDataForm: GetTemplateModel | undefined;
-  
+
   pageDataForm: any;
   templateChoice: string = '';
 
@@ -84,15 +94,18 @@ export class EditArticleComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
+    private notificationsService: NotificationsService,
     private contentsService: ContentsService,
-    private router: Router
-    ) { }
+    private router: Router,
+    private reload: ReloadService
+  ) { }
 
   /**
    *
    * Method used to fetch article content
    */
   ngOnInit(): void {
+    this.reload.reload$.subscribe(() => {
     this.loadArticle();
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -100,6 +113,8 @@ export class EditArticleComponent implements OnInit {
         this.loadArticle();
       }
     });
+  });
+  this.reload.triggerReload();
   }
 
 
@@ -119,12 +134,20 @@ export class EditArticleComponent implements OnInit {
       console.error('ID or page is null');
       return;
     }
+    this.isLoading = true;
+
     this.articleService.getArticle(+id, +page).subscribe({
       next: (data: any) => {
         this.wholeArticle = data.body;
         this.articleContents = Object.values(this.wholeArticle);
+        this.isLoading = false;
+
       },
-      error: (error) => console.error(error)
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+      }
     });
   }
 
@@ -160,7 +183,7 @@ export class EditArticleComponent implements OnInit {
       reader.onload = (e) => {
         if (e.target !== null && e.target !== undefined) {
           // Assign the preview URL to the property
-          this.previewImageUrlLeft = e.target.result; 
+          this.previewImageUrlLeft = e.target.result;
         } else {
           console.error('e.target is null or undefined');
         }
@@ -192,7 +215,7 @@ export class EditArticleComponent implements OnInit {
         }
       };
 
-      reader.readAsDataURL(file); 
+      reader.readAsDataURL(file);
     }
   }
 
@@ -205,7 +228,7 @@ export class EditArticleComponent implements OnInit {
   onFileChangeRight(event: any): void {
     if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
-      this.imageRight = file; 
+      this.imageRight = file;
 
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -224,32 +247,47 @@ export class EditArticleComponent implements OnInit {
    * 
    */
   submitTemplateForm(): void {
+    this.isLoading = true;
+
     this.contentsService.getTemplate(this.id_articles, this.templateChoice).subscribe({
       next: (data: any) => {
         this.templateDataForm = data.body[0];
         this.showSection = false;
         this.showContentForm = true;
         this.showTools = true;
+        this.isLoading = false;
       },
-      error: (error) => console.error(error)
-    });
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+      this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+       }
+          });
   }
-
-
 
   /**
    * Method used to submit the form
    */
   submitAddTemplate(): void {
+    this.isLoading = true;
+
     this.contentsService.addTemplate(this.id_articles, this.templateChoice, this.titleLeft, this.titleRight, this.titleCenter, this.textLeft, this.textRight, this.textCenter, this.imageLeft, this.imageRight, this.imageCenter, this.attachementLeft, this.attachementRight, this.attachementCenter, this.page)
       .subscribe({
         next: (data: any) => {
           this.templateData = data.body;
-          this.showSection = true;
           this.showTools = false;
+          this.toggleForm();
+          this.isLoading = false;
+          this.notificationsService.displayNotification(this, 'add-success', 2000, null, 'client', false);
+          this.router.navigate([`/edit-article/${this.id_articles}/${this.page}`]);
+          this.reload.triggerReload();
         },
-        error: (error) => console.error(error)
-      });
+        error: (error: any) => {
+          this.isLoading = false;
+          const message = error.error?.message || 'An error occurred';
+          this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+         }   
+           });
   }
 
 
@@ -281,12 +319,21 @@ export class EditArticleComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.templateData = data.body;
-          this.showSection = false;
+          this.showSection = true;
           this.editComponent = false;
+          this.showTools = false;
+          this.toggleForm();
+          this.isLoading = false;
+          this.notificationsService.displayNotification(this, 'update-success', 2000, null, 'client', false);
           this.router.navigate([`/edit-article/${this.id_articles}/${this.page}`]);
+          this.reload.triggerReload();
         },
-        error: (error) => console.error(error)
-      });
+        error: (error: any) => {
+          this.isLoading = false;
+          const message = error.error?.message || 'An error occurred';
+          this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+         }
+              });
   }
 
   /**
@@ -296,10 +343,20 @@ export class EditArticleComponent implements OnInit {
    * @param id 
    */
   removeContent(id: number): void {
+    this.isLoading = true;
     this.contentsService.remove(id).subscribe({
       next: (data: any) => {
+        this.isLoading = false;
+        this.notificationsService.displayNotification(this, 'delete-success', 2000, null, 'client', false);
+        this.router.navigate([`/edit-article/${this.id_articles}/${this.page}`]);
+        this.reload.triggerReload();
+
       },
-      error: (error) => console.error(error)
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+       }
     });
   }
 
@@ -310,22 +367,29 @@ export class EditArticleComponent implements OnInit {
    * @param id 
    */
   editContent(id: number): void {
+    this.isLoading = true;
     this.contentsService.get(id).subscribe({
       next: (data: any) => {
         this.wholeArticle = data.body;
         this.editComponent = true;
         this.showTools = true;
+        this.isLoading = false;
+
       },
-      error: (error) => console.error(error)
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+       }
     });
   }
 
-/**
- * 
- * Method to set the active text area
- * 
- * @param textAreaId 
- */
+  /**
+   * 
+   * Method to set the active text area
+   * 
+   * @param textAreaId 
+   */
   setActiveTextArea(textAreaId: string) {
     this.activeTextAreaId = textAreaId;
   }
@@ -338,9 +402,9 @@ export class EditArticleComponent implements OnInit {
     this.showContentForm = false;
   }
 
-/**
- * Methode used to toggle the add or edit entrie form
- */
+  /**
+   * Methode used to toggle the add or edit entrie form
+   */
   cancelButton(): void {
     this.showSection = false;
     this.showTools = false;

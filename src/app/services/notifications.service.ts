@@ -22,6 +22,7 @@ export class NotificationsService {
       'login-success': 'Connexion réussie',
       'logout-success': 'Déconnexion réussie',
       'delete-success': 'Suppression réussie',
+      'update-success': 'Mise à jour réussie',
       'ghost-success': 'Données personnelles supprimées, ce compte est désormais un compte fantôme',
       'display-success': 'Modification de l\'affichage réussi',
       'activate-success': 'Changement du status du compte réussie',
