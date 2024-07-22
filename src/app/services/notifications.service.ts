@@ -19,10 +19,12 @@ export class NotificationsService {
   notificationMessages: NotificationsModel =
     {
       'alert-success': 'Notification de succès OK',
-      'alert-failure': 'Notification d\'erreur OK',
       'login-success': 'Connexion réussie',
-      'is-logout': 'Souhaitez-vous vous déconnecter ?',
       'logout-success': 'Déconnexion réussie',
+      'delete-success': 'Suppression réussie',
+      'add-success': 'Ajout réussi',
+      'alert-failure': 'Notification d\'erreur OK',
+      'is-logout': 'Souhaitez-vous vous déconnecter ?',
       'login-need': 'Vous devez être connecté pour accéder à cette page',
      
     }

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 
 // // Initialisation component method
-// import { OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 
 // Type model
 import { NavigationModel } from '../../models/navigation.model';
@@ -40,23 +40,24 @@ import { NotificationsComponent } from '../notifications/notifications.component
 
 
 
-export class MenuSettingComponent {
+export class MenuSettingComponent implements OnInit {
 
   // Attributes
-  showForm = false;
+  showForm: boolean = false;
   name: string = '';
   dataMenu: NavigationModel[] = [];
  
 
 
-isNotificationWindow = false;
+isNotificationWindow: boolean = false;
 notificationMessage: string = '';
 
+isLoading: Boolean = false;
 
 
   // Constructor
   constructor(private menuSettingService: MenuSettingService,
-    private notificationServices: NotificationsService,
+    private notificationsService: NotificationsService,
     private router: Router,
     private routeReuseStrategy: RouteReuseStrategy,
     private reload: ReloadService) { }
@@ -67,14 +68,17 @@ notificationMessage: string = '';
  * Method used to fetch the data menu. Initialized after the creation of the component
  */
   ngOnInit(): void {
+    this.isLoading = true;
     this.reload.reload$.subscribe(() => {
       this.menuSettingService.getAll().subscribe({
         next: (data: any) => {
           this.dataMenu = data.body;
+          this.isLoading = false;
         },
-        error: (error) => {
-          error =  error.error.message;
-          this.showNotification(true, error, 3000, null, 'server');
+        error: (error: any) => {
+          this.isLoading = false;
+          const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
          }
       });
 
@@ -96,50 +100,71 @@ notificationMessage: string = '';
     return article[key as keyof NavigationModel];
   }
 
-
+/**
+ * Method to submit the form to add a new item
+ * 
+ */
   submitForm(): void {
+    this.isLoading = true;
     this.menuSettingService.create(this.name).subscribe({
       next: (data: any) => {
         this.showForm = false;
         this.name = '';
-        // Force route reload
+        this.isLoading = false;
         this.reload.triggerReload();
-        this.router.navigate(['/menu-setting']);
-
+        this.notificationsService.displayNotification(this, 'add-success', 2000, '/menu-setting', 'client', false);
       },
-      error: (error) => {
-        error =  error.error.message;
-        this.showNotification(true, error, 3000, null, 'server');
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
        }
     });
   }
 
+
+  /**
+   * 
+   * Method to delete an item
+   * 
+   * @param id 
+   */
   deleteItem(id: number): void {
+    this.isLoading = true;
     this.menuSettingService.delete(id).subscribe({
       next: (data: any) => {
-        // Force route reload
+        this.isLoading = false;
         this.reload.triggerReload();
-        this.router.navigate(['/menu-setting']);
+        this.notificationsService.displayNotification(this, 'delete-success', 2000, '/menu-setting', 'client', false);
       },
-      error: (error) => {
-        error =  error.error.message;
-        this.showNotification(true, error, 3000, null, 'server');
-       }
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+      }
     });
   }
 
-
+/**
+ * 
+ * Method to move an item up
+ * 
+ * @param id 
+ */
   upItem(id: number): void {
+    this.isLoading = true;
     this.menuSettingService.up(id).subscribe({
       next: (data: any) => {
 
         // Force route reload
         this.reload.triggerReload();
         this.router.navigate(['/menu-setting']);
+        this.isLoading = false;
       },
-      error: (error) => {
-        error =  error.error.message;
-        this.showNotification(true, error, 3000, null, 'server');
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
        }
     });
   }
@@ -151,21 +176,21 @@ notificationMessage: string = '';
  * @param id 
  */
   downItem(id: number): void {
+    this.isLoading = true;
     this.menuSettingService.down(id).subscribe({
       next: (data: any) => {
         // Force route reload
         this.reload.triggerReload();
         this.router.navigate(['/menu-setting']);
+        this.isLoading = false;
       },
-      error: (error) => {
-       error =  error.error.message;
-       this.showNotification(true, error, 3000, null, 'server');
+      error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+        this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
       }
     });
   }
-
-
-
 
   /**
    * Methode used to toggle the add entrie form
@@ -176,37 +201,6 @@ notificationMessage: string = '';
 
 
 
-  /**
-  * 
-  * Methode to show a notification
-  * 
-  * @param display active or not the notification selected by ngIf in html
-  * @param type could be a key or a message
-  * @param timer duration when the notification is displayed
-  * @param redirect route to redirect after the notification is displayed
-  * @param origin values to define witch type of error is displayed 'client'(key) or 'server'(value) 
-  */
-  showNotification(display: boolean, type: string, timer: number = 0, redirect?: string | null, origin?: string) {
-
-    // Most of time set to true to display the notification
-    this.isNotificationWindow = display;
-
-    if (origin === 'client' || origin === undefined) {
-      this.notificationMessage = this.notificationServices.getNotificationMessage(type);
-    } else if (origin === 'server') {
-      this.notificationMessage = type;
-    }
-
-    if (display && timer > 0) {
-      setTimeout(() => {
-        this.isNotificationWindow = false;
-
-        if (redirect !== undefined || redirect !== null) {
-          this.router.navigate([redirect]);
-        }
-      }, timer);
-    }
-  }
 
 
 

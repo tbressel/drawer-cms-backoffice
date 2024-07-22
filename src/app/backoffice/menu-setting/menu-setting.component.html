@@ -1,3 +1,7 @@
+<div *ngIf="isLoading" class="mask"></div>
+<div *ngIf="isLoading" class="spinner"></div>
+
+
 <app-notifications *ngIf="isNotificationWindow" [notificationMessage]="notificationMessage"></app-notifications>
 
 <div class="add-menu__wrapper">
@@ -43,7 +47,7 @@
             <td class="menu-setting__column">
                 <i class="item__menu-up" (click)="upItem(itemMenu.id_menu)">⬆️</i>
                 <i class="item__menu-down" (click)="downItem(itemMenu.id_menu)">⬇️</i>
-                <i class="edit-icon">🖊️</i>
+                <!-- <i class="edit-icon">🖊️</i> -->
                 <i class="delete-icon" (click)="deleteItem(itemMenu.id_menu)">❌</i>
             </td>
         </tr>
