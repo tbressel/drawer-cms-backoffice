@@ -69,7 +69,8 @@ isLoading: Boolean = false;
           this.isLoading = false;
           const message = error.error?.message || 'An error occurred';
         this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
-         }      });
+         }     
+         });
     });
     this.reload.triggerReload();
   }

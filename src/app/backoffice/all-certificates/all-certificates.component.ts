@@ -16,12 +16,14 @@ import { NotificationsService } from '../../services/notifications.service';
 import { ReloadService } from '../../services/reload.service';
 
 
+import { NotificationsComponent } from '../notifications/notifications.component';
+
 
 
 @Component({
   selector: 'app-all-certificates',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NotificationsComponent],
   templateUrl: './all-certificates.component.html',
   styleUrl: './all-certificates.component.scss'
 })
@@ -29,6 +31,12 @@ export class AllCertificatesComponent implements OnInit {
  // Attributes
  dataAllArticles: CertificatesListModel[] = [];
  token: string | null = '';
+
+
+ isNotificationWindow: boolean = false;
+notificationMessage: string = '';
+
+isLoading: Boolean = false;
 
  // Constructor
  constructor(private certificateService: CertificateService,
@@ -45,23 +53,29 @@ export class AllCertificatesComponent implements OnInit {
   * 
   */
  ngOnInit(): void {
-    // Local storage access only if the platform is the browser (not the server)
+   
+   // Local storage access only if the platform is the browser (not the server)
     if (isPlatformBrowser(this.platformId)) {
       this.token = localStorage.getItem('token');
     }
 
     if (!this.token) {
-      this.notificationsService.displayNotification(this, 'login-need', 3000, '/accueil', 'client', false);
+      this.notificationsService.displayNotification(this, 'login-need', 3000, '/admin', 'client', false);
       return;
     }
-
-
+    
+    
+    this.isLoading = true;
      this.certificateService.getAll(this.token).subscribe({
        next: (data: any) => {
          this.dataAllArticles = data.body;
+         this.isLoading = false;
        },
-       error: (error) => console.error(error)
-     });
+       error: (error: any) => {
+        this.isLoading = false;
+        const message = error.error?.message || 'An error occurred';
+      this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+       }      });
  
    this.reload.triggerReload();
  }
@@ -88,12 +102,16 @@ export class AllCertificatesComponent implements OnInit {
   
   this.certificateService.delete(id, this.token).subscribe({
     next: (data: any) => {
+      this.isLoading = false;
       this.reload.triggerReload();
-      this.router.navigate(['/all-certificates']);
+      this.notificationsService.displayNotification(this, 'delete-success', 2000, '/all-certificates', 'client', false);
+
     },
-    error: (error) => {
-      console.error('Erreur lors de la suppression de l\'utilisateur', error);
-    }
+    error: (error: any) => {
+      this.isLoading = false;
+      const message = error.error?.message || 'An error occurred';
+    this.notificationsService.displayNotification(this, message, 2000, null, 'server', false);
+     } 
   });
 }
 
